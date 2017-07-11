@@ -1,5 +1,0 @@
-C:\Users\NT\Documents\Projects\C#\Ground-Station-Test-Tool\GS_LOGIC\bin\Debug\GS_LOGIC.dll
-C:\Users\NT\Documents\Projects\C#\Ground-Station-Test-Tool\GS_LOGIC\bin\Debug\GS_LOGIC.pdb
-C:\Users\NT\Documents\Projects\C#\Ground-Station-Test-Tool\GS_LOGIC\obj\Debug\GS_LOGIC.csprojResolveAssemblyReference.cache
-C:\Users\NT\Documents\Projects\C#\Ground-Station-Test-Tool\GS_LOGIC\obj\Debug\GS_LOGIC.dll
-C:\Users\NT\Documents\Projects\C#\Ground-Station-Test-Tool\GS_LOGIC\obj\Debug\GS_LOGIC.pdb
