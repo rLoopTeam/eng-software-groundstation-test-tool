@@ -39,9 +39,9 @@ namespace GS_GUI
 
             byte[] payload = new byte[8];
 
-            byte[] count = UInt16ToBytes("tabPower", "tBSpare");
-            byte[] spare = UInt16ToBytes("tabPower", "tBCount");
-            byte[] temp = Float32ToBytes("tabPower", "tBTemp");
+            byte[] count = GetUInt16ToBytes("tabPower", "tBSpare");
+            byte[] spare = GetUInt16ToBytes("tabPower", "tBCount");
+            byte[] temp = GetFloatToBytes("tabPower", "tBTemp");
 
             payload.Insert(0,count);
             payload.Insert(2, spare);
@@ -56,74 +56,69 @@ namespace GS_GUI
         }
 
 
-        private byte[] FloatToBytes (String Tab, String Control)
+        private byte[] GetFloatToBytes (String Tab, String Control)
         {
             TabPage tab = tC_Systems.TabPages[Tab];
             byte[] payload = BitConverter.GetBytes(float.Parse(tab.Controls[Control].Text));
             return payload;
         }
 
-        private byte[] Int8ToBytes(String Tab, String Control)
+        private byte[] GetInt8ToBytes(String Tab, String Control)
         {
             TabPage tab = tC_Systems.TabPages[Tab];
             byte[] payload = BitConverter.GetBytes(sbyte.Parse(tab.Controls[Control].Text));
             return payload;
         }
 
-        private byte[] Int16ToBytes(String Tab, String Control)
+        private byte[] GetInt16ToBytes(String Tab, String Control)
         {
             TabPage tab = tC_Systems.TabPages[Tab];
             byte[] payload = BitConverter.GetBytes(Int16.Parse(tab.Controls[Control].Text));
             return payload;
         }
 
-        private byte[] Int32ToBytes(String Tab, String Control)
+        private byte[] GetInt32ToBytes(String Tab, String Control)
         {
             TabPage tab = tC_Systems.TabPages[Tab];
             byte[] payload = BitConverter.GetBytes(Int32.Parse(tab.Controls[Control].Text));
             return payload;
         }
 
-        private byte[] Int64ToBytes(String Tab, String Control)
+        private byte[] GetInt64ToBytes(String Tab, String Control)
         {
             TabPage tab = tC_Systems.TabPages[Tab];
             byte[] payload = BitConverter.GetBytes(Int64.Parse(tab.Controls[Control].Text));
             return payload;
         }
 
-        private byte[] UInt8ToBytes(String Tab, String Control)
+        private byte[] GetUInt8ToBytes(String Tab, String Control)
         {
             TabPage tab = tC_Systems.TabPages[Tab];
             byte[] payload = BitConverter.GetBytes(byte.Parse(tab.Controls[Control].Text));
             return payload;
         }
 
-        private byte[] UInt16ToBytes(String Tab, String Control)
+        private byte[] GetUInt16ToBytes(String Tab, String Control)
         {
             TabPage tab = tC_Systems.TabPages[Tab];
             byte[] payload = BitConverter.GetBytes(UInt16.Parse(tab.Controls[Control].Text));
             return payload;
         }
 
-        private byte[] UInt32ToBytes(String Tab, String Control)
+        private byte[] GetUInt32ToBytes(String Tab, String Control)
         {
             TabPage tab = tC_Systems.TabPages[Tab];
             byte[] payload = BitConverter.GetBytes(UInt32.Parse(tab.Controls[Control].Text));
             return payload;
         }
 
-        private byte[] UInt64ToBytes(String Tab, String Control)
+        private byte[] GetUInt64ToBytes(String Tab, String Control)
         {
             TabPage tab = tC_Systems.TabPages[Tab];
             byte[] payload = BitConverter.GetBytes(UInt64.Parse(tab.Controls[Control].Text));
             return payload;
         }
 
-        private byte[] Float32ToBytes(String Tab, String Control)
-        {
-            TabPage tab = tC_Systems.TabPages[Tab];
-            byte[] payload = BitConverter.GetBytes(float.Parse(tab.Controls[Control].Text));
-            return payload;
-        }
+
     }
 }
