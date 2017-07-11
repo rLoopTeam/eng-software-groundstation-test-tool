@@ -8,15 +8,6 @@ namespace GS_LOGIC
 {
     public class PacketDefinition
     {
-        public enum PacketTypes
-        {
-            POWER_CURRENT_TEMP
-        }
-
-
-        public static Dictionary<PacketTypes, uint> PTypes = new Dictionary<PacketTypes, uint>() {
-            { PacketTypes.POWER_CURRENT_TEMP,0x3201 }
-        };
 
         public String Name { get; set; }
         public String ParameterPrefix { get; set; }

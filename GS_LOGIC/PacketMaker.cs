@@ -4,17 +4,64 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static GS_LOGIC.PacketDefinition;
+using static GS_LOGIC.Constants;
 
 namespace GS_LOGIC
 {
     public class PacketMaker
     {
-        public PacketMaker()
+        public static byte[] makeUDP(PacketTypes type, byte[] payload)
         {
+            int sequenceSize = 4;
+            int packetTypeSize = 2;
+            int payloadLengthDef = 2;
+            int payloadLengthSize = payload.Length;
+            int crcSize = 2;
 
+            int packetSize = sequenceSize + packetTypeSize + payloadLengthDef + payloadLengthSize + crcSize;
+
+            byte[] packet = new byte[packetSize];
+
+            byte[] sequence = BitConverter.GetBytes(1);
+            byte[] packettype = BitConverter.GetBytes(PTypes[type]);
+            byte[] payloadLength = BitConverter.GetBytes(payloadLengthSize);
+
+            if (!BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(sequence);
+                Array.Reverse(packettype);
+                Array.Reverse(payloadLength); 
+            }
+
+            packet[0] = sequence[0];
+            packet[1] = sequence[1];
+            packet[2] = sequence[2];
+            packet[3] = sequence[3];
+            packet[4] = packettype[0];
+            packet[5] = packettype[1];
+            packet[6] = payloadLength[0];
+            packet[7] = payloadLength[1];
+
+
+            for (int i = 0; i < payload.Length; i++)
+            {
+                packet[8 + i] = payload[i];
+            }
+
+            byte[] crc = CalculateCRC(packet, packetSize-2);
+
+            if (!BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(crc);
+            }
+
+            packet[packetSize - 2] = crc[0];
+            packet[packetSize - 1] = crc[1];
+
+            return packet;
         }
 
+        /*
         public byte[] makeUDP(PacketTypes type, int[][] values)
         {
             int sequenceSize = 4;
@@ -42,7 +89,7 @@ namespace GS_LOGIC
             {
                 byte[] value = BitConverter.GetBytes(values[i][1]);
 
-                for (int y = 0; i < values[y][0]; y++)
+                for (int y = 0; i < values[i][0]; y++)
                 {
                     payload[payloadPos] = value[y];
                     payloadPos++;
@@ -56,6 +103,11 @@ namespace GS_LOGIC
             packet[4] = packettype[0];
             packet[5] = packettype[1];
 
+            for(int i = 0; i < payload.Length; i++)
+            {
+                packet[5 + i] = payload[i];
+            }
+
             byte[] crc = CalculateCRC(packet, packetSize);
 
             packet[packetSize - 2] = crc[0];
@@ -63,8 +115,9 @@ namespace GS_LOGIC
 
             return packet;
         }
+        */
 
-        public byte[] CalculateCRC(byte[] packet, int packetLength)
+        public static byte[] CalculateCRC(byte[] packet, int packetLength)
         {
             //from current GS
             var crc = 0x0000;
