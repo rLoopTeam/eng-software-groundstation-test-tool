@@ -15,6 +15,7 @@ namespace GS_GUI
     public partial class Form1 : Form
     {
         UDPServer server;
+
         public Form1()
         {
             InitializeComponent();
@@ -24,101 +25,85 @@ namespace GS_GUI
 
         private void initTabs()
         {
-            TabPage powertab = tC_Systems.TabPages["tabPower"];
-            ComboBox list = (ComboBox)powertab.Controls["cBNodelist"];
+            Enum[] PowerTempDatasource = new Enum[2];
+            Enum[] PowerBMSDatasource = new Enum[2];
 
-            Enum[] datasource = new Enum[9];
-            Array.Copy(Enum.GetValues(typeof(PacketTypes)), 0, datasource, 0, 8);
-            
-            list.DataSource = datasource;
+            Array.Copy(Enum.GetValues(typeof(PacketTypes)), 0, PowerTempDatasource, 0, 2);
+            Array.Copy(Enum.GetValues(typeof(PacketTypes)), 6, PowerBMSDatasource, 0, 2);
+
+            comboBoxPowerTemp.DataSource = PowerTempDatasource;
+            comboBoxPowerBMS.DataSource = PowerBMSDatasource;
+
+            InitPowerBMSTabControls();
+            InitPowerCoolingTabControls();
+        }
+
+        void InitPowerBMSTabControls()
+        {
+            for (int i = 1; i < 51; i++)
+            {
+                String textBoxName = String.Format("textBox{0}", i);
+                tabPowerBMS.Controls[textBoxName].Text = "0";
+                tabPowerBMS.Controls[textBoxName].TabIndex = i + 1;
+            }
+        }
+
+        void InitPowerCoolingTabControls()
+        {
+            for (int i = 0; i < 21; i++)
+            {
+                String textBoxName = String.Format("textBox{0}", 51 + i);
+                String labelName = String.Format("label{0}", 56 + i);
+                tabPowerCooling.Controls[textBoxName].Text = "0";
+                tabPowerCooling.Controls[textBoxName].TabIndex = i + 1;
+                tabPowerCooling.Controls[labelName].Text = Constants.AllPackets[PacketTypes.POWER_A_COOLING].Parameters[i].Name;
+            }
         }
 
         private void btnPowerSinglePacket_Click(object sender, EventArgs e)
         {
-            TabPage powertab = tC_Systems.TabPages["tabPower"];
-
-            byte[] payload = new byte[8];
-
-            byte[] count = GetUInt16ToBytes("tabPower", "tBSpare");
-            byte[] spare = GetUInt16ToBytes("tabPower", "tBCount");
-            byte[] temp = GetFloatToBytes("tabPower", "tBTemp");
-
-            payload.Insert(0,count);
-            payload.Insert(2, spare);
-            payload.Insert(4, temp);
-
-            ComboBox list = (ComboBox)powertab.Controls["cBNodelist"];
-            PacketTypes packetType = (PacketTypes)list.SelectedItem;
-
+            PacketTypes packetType = (PacketTypes)comboBoxPowerTemp.SelectedItem;
+            String[] payload = { GetString("tabPowerTemp", "tBSpare"), GetString("tabPowerTemp", "tBCount"), GetString("tabPowerTemp", "tBTemp") };
             byte[] udp = PacketMaker.makeUDP(packetType, payload);
             server.sendPacket(udp, packetType);
-
         }
 
-
-        private byte[] GetFloatToBytes (String Tab, String Control)
+        private void buttonPowerBMSSingle_Click(object sender, EventArgs e)
         {
-            TabPage tab = tC_Systems.TabPages[Tab];
-            byte[] payload = BitConverter.GetBytes(float.Parse(tab.Controls[Control].Text));
-            return payload;
+            PacketTypes type = (PacketTypes)comboBoxPowerBMS.SelectedItem;
+            String[] arrValues = GetValues(tabPowerBMS,type, 1);
+            byte[] udp = PacketMaker.makeUDP(type, arrValues);
+            server.sendPacket(udp, type);
         }
 
-        private byte[] GetInt8ToBytes(String Tab, String Control)
+        private void buttonPowerCoolingSingle_Click(object sender, EventArgs e)
         {
-            TabPage tab = tC_Systems.TabPages[Tab];
-            byte[] payload = BitConverter.GetBytes(sbyte.Parse(tab.Controls[Control].Text));
-            return payload;
+            String[] arrValues = GetValues(tabPowerCooling, PacketTypes.POWER_A_COOLING, 51);
+            byte[] udp = PacketMaker.makeUDP(PacketTypes.POWER_A_COOLING, arrValues);
+            server.sendPacket(udp, PacketTypes.POWER_A_COOLING);
         }
 
-        private byte[] GetInt16ToBytes(String Tab, String Control)
+        private String GetString(String Tab, String Control)
         {
-            TabPage tab = tC_Systems.TabPages[Tab];
-            byte[] payload = BitConverter.GetBytes(Int16.Parse(tab.Controls[Control].Text));
-            return payload;
+            TabPage tab = TabControl_Systems.TabPages[Tab];
+            String str = tab.Controls[Control].Text;
+            return str;
         }
 
-        private byte[] GetInt32ToBytes(String Tab, String Control)
+        private String[] GetValues(TabPage page, PacketTypes type, int TextBoxOffset)
         {
-            TabPage tab = tC_Systems.TabPages[Tab];
-            byte[] payload = BitConverter.GetBytes(Int32.Parse(tab.Controls[Control].Text));
-            return payload;
+            var parameters = Constants.AllPackets[type].Parameters;
+            var tabControls = page.Controls;
+
+            String[] arrValues = new String[parameters.Length];
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                String textBoxName = String.Format("textBox{0}", i + TextBoxOffset);
+                String value = tabControls[textBoxName].Text;
+                arrValues[i] = value;
+            }
+
+            return arrValues;
         }
-
-        private byte[] GetInt64ToBytes(String Tab, String Control)
-        {
-            TabPage tab = tC_Systems.TabPages[Tab];
-            byte[] payload = BitConverter.GetBytes(Int64.Parse(tab.Controls[Control].Text));
-            return payload;
-        }
-
-        private byte[] GetUInt8ToBytes(String Tab, String Control)
-        {
-            TabPage tab = tC_Systems.TabPages[Tab];
-            byte[] payload = BitConverter.GetBytes(byte.Parse(tab.Controls[Control].Text));
-            return payload;
-        }
-
-        private byte[] GetUInt16ToBytes(String Tab, String Control)
-        {
-            TabPage tab = tC_Systems.TabPages[Tab];
-            byte[] payload = BitConverter.GetBytes(UInt16.Parse(tab.Controls[Control].Text));
-            return payload;
-        }
-
-        private byte[] GetUInt32ToBytes(String Tab, String Control)
-        {
-            TabPage tab = tC_Systems.TabPages[Tab];
-            byte[] payload = BitConverter.GetBytes(UInt32.Parse(tab.Controls[Control].Text));
-            return payload;
-        }
-
-        private byte[] GetUInt64ToBytes(String Tab, String Control)
-        {
-            TabPage tab = tC_Systems.TabPages[Tab];
-            byte[] payload = BitConverter.GetBytes(UInt64.Parse(tab.Controls[Control].Text));
-            return payload;
-        }
-
-
     }
 }
