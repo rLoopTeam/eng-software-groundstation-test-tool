@@ -254,6 +254,74 @@ namespace GS_LOGIC
           }
     }
         },
+            {PacketTypes.LASER_OPTO_SENSOR, new PacketDefinition {
+      Name = "Laser Opto Sensor",
+      ParameterPrefix = "LaserOpto ",
+      PacketType = 0x1101,
+      Node = "Flight Control",
+      DAQ = false,
+      Parameters = new Param[] {
+                new Param{Name = "Fault flags", Type = typeof(UInt32), Units = "", Size = 4}, // top-level fault flags
+                new Param{Name = "Spare", Type = typeof(UInt32), Units = "", Size = 4},
+
+                new Param{Name = "Fault flags 1", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Laser error packet count 1", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "First byte wrong 1", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Raw distance 1", Type = typeof(float), Units = "", Size = 4},
+                new Param{Name = "Filtered value 1", Type = typeof(float), Units = "mm", Size = 4},
+                new Param{Name = "Spare 1", Type = typeof(UInt32), Units = "", Size = 4},
+
+                new Param{Name = "Fault flags 2", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Laser error packet count 2", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "First byte wrong 2", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Raw distance 2", Type = typeof(float), Units = "", Size = 4},
+                new Param{Name = "Filtered value 2", Type = typeof(float), Units = "mm", Size = 4},
+                new Param{Name = "Spare 2", Type = typeof(UInt32), Units = "", Size = 4},
+
+                new Param{Name = "Fault flags 3", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Laser error packet count 3", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "First byte wrong 3", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Raw distance 3", Type = typeof(float), Units = "", Size = 4},
+                new Param{Name = "Filtered value 3", Type = typeof(float), Units = "mm", Size = 4},
+                new Param{Name = "Spare 3", Type = typeof(UInt32), Units = "", Size = 4},
+
+                new Param{Name = "Fault flags 4", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Laser error packet count 4", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "First byte wrong 4", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Raw distance 4", Type = typeof(float), Units = "", Size = 4},
+                new Param{Name = "Filtered value 4", Type = typeof(float), Units = "mm", Size = 4},
+                new Param{Name = "Spare 4", Type = typeof(UInt32), Units = "", Size = 4},
+
+                new Param{Name = "Fault flags 5", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Laser error packet count 5", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "First byte wrong 5", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Raw distance 5", Type = typeof(float), Units = "", Size = 4},
+                new Param{Name = "Filtered value 5", Type = typeof(float), Units = "mm", Size = 4},
+                new Param{Name = "Spare 5", Type = typeof(UInt32), Units = "", Size = 4},
+
+                new Param{Name = "Fault flags 6", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Laser error packet count 6", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "First byte wrong 6", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Raw distance 6", Type = typeof(float), Units = "", Size = 4},
+                new Param{Name = "Filtered value 6", Type = typeof(float), Units = "mm", Size = 4},
+                new Param{Name = "Spare 6", Type = typeof(UInt32), Units = "", Size = 4},
+
+                new Param{Name = "Fault flags 7", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Laser error packet count 7", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "First byte wrong 7", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Raw distance 7", Type = typeof(float), Units = "", Size = 4},
+                new Param{Name = "Filtered value 7", Type = typeof(float), Units = "mm", Size = 4},
+                new Param{Name = "Spare 7", Type = typeof(UInt32), Units = "", Size = 4},
+
+                new Param{Name = "Fault flags 8", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Laser error packet count 8", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "First byte wrong 8", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Raw distance 8", Type = typeof(float), Units = "", Size = 4},
+                new Param{Name = "Filtered value 8", Type = typeof(float), Units = "mm", Size = 4},
+                new Param{Name = "Spare 8", Type = typeof(UInt32), Units = "", Size = 4}
+      }
+    }
+            },
         };
 
         public static UInt16[] CRCHashtable = new UInt16[]
