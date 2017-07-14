@@ -321,6 +321,65 @@ namespace GS_LOGIC
                 new Param{Name = "Spare 8", Type = typeof(UInt32), Units = "", Size = 4}
       }
     }
+            }, {PacketTypes.ACCEL_CAL_FULL, new PacketDefinition
+            {
+      Name = "Accel Cal Full",
+      ParameterPrefix = "Accel ",
+      PacketType = 0x1001,
+      Node = "Flight Control",
+      DAQ = false,
+      Parameters = new Param[] {
+                new Param {Name = "0 Flags", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "0 X Raw", Type = typeof(Int16), Units = "RAW", Size = 2},
+                new Param {Name = "0 Y Raw", Type = typeof(Int16), Units = "RAW", Size = 2},
+                new Param {Name = "0 Z Raw", Type = typeof(Int16), Units = "RAW", Size = 2},
+
+                new Param {Name = "1 Flags", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "1 X Raw", Type = typeof(Int16), Units = "RAW", Size = 2},
+                new Param {Name = "1 Y Raw", Type = typeof(Int16), Units = "RAW", Size = 2},
+                new Param {Name = "1 Z Raw", Type = typeof(Int16), Units = "RAW", Size = 2}
+      }
+
+    }
+            },
+    {PacketTypes.ACCEL_DATA_FULL, new PacketDefinition {
+      Name = "Accel Data Full",
+      ParameterPrefix = "Accel ",
+      PacketType = 0x1003,
+      Node = "Flight Control",
+      DAQ = false,
+      Parameters = new Param[] {
+                new Param {Name = "0 Flags", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "0 X Raw", Type = typeof(Int16), Units = "RAW", Size = 2},
+                new Param {Name = "0 Y Raw", Type = typeof(Int16), Units = "RAW", Size = 2},
+                new Param {Name = "0 Z Raw", Type = typeof(Int16), Units = "RAW", Size = 2},
+               new Param  {Name = "0 X Gs", Type = typeof(float), Units = "Gs", Size = 4},
+               new Param  {Name = "0 Y Gs", Type = typeof(float), Units = "Gs", Size = 4},
+               new Param  {Name = "0 Z Gs", Type = typeof(float), Units = "Gs", Size = 4},
+               new Param  {Name = "0 Pitch", Type = typeof(float), Units = "°", Size = 4},
+               new Param  {Name = "0 Roll", Type = typeof(float), Units = "°", Size = 4},
+               new Param  {Name = "0 Current Accel", Type = typeof(Int32), Units = "mmss", Size = 4},
+                new Param {Name = "0 Current Velocity", Type = typeof(Int32), Units = "mms", Size = 4},
+                new Param {Name = "0 Previous Velocity", Type = typeof(Int32), Units = "mms", Size = 4},
+                new Param {Name = "0 Current Displacement", Type = typeof(Int32), Units = "mm", Size = 4},
+                new Param {Name = "0 Previous Displacement", Type = typeof(Int32), Units = "mm", Size = 4},
+
+                new Param {Name = "1 Flags", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "1 X Raw", Type = typeof(Int16), Units = "RAW", Size = 2},
+                new Param {Name = "1 Y Raw", Type = typeof(Int16), Units = "RAW", Size = 2},
+                new Param {Name = "1 Z Raw", Type = typeof(Int16), Units = "RAW", Size = 2},
+               new Param  {Name = "1 X Gs", Type = typeof(float), Units = "Gs", Size = 4},
+               new Param  {Name = "1 Y Gs", Type = typeof(float), Units = "Gs", Size = 4},
+               new Param  {Name = "1 Z Gs", Type = typeof(float), Units = "Gs", Size = 4},
+               new Param  {Name = "1 Pitch", Type = typeof(float), Units = "°", Size = 4},
+               new Param  {Name = "1 Roll", Type = typeof(float), Units = "°", Size = 4},
+               new Param  {Name = "1 Current Accel", Type = typeof(Int32), Units = "mmss", Size = 4},
+               new Param  {Name = "1 Current Velocity", Type = typeof(Int32), Units = "mms", Size = 4},
+               new Param  {Name = "1 Previous Velocity", Type = typeof(Int32), Units = "mms", Size = 4},
+               new Param  {Name = "1 Current Displacement", Type = typeof(Int32), Units = "mm", Size = 4},
+               new Param  {Name = "1 Previous Displacement", Type = typeof(Int32), Units = "mm", Size = 4}
+      }
+    }
             },
         };
 
