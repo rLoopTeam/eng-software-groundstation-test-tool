@@ -380,7 +380,107 @@ namespace GS_LOGIC
                new Param  {Name = "1 Previous Displacement", Type = typeof(Int32), Units = "mm", Size = 4}
       }
     }
-            },
+            }, {PacketTypes.THROTTLE_PARAMETERS, new PacketDefinition
+        {
+      Name = "Throttle parameters",
+      ParameterPrefix = "Throttle ",
+      PacketType = 0x1503,
+      Node = "Flight Control",
+      DAQ = false,
+      Parameters = new Param[]{
+                new Param {Name = "Requested RPM 1", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Requested RPM 2", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Requested RPM 3", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Requested RPM 4", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Requested RPM 5", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Requested RPM 6", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Requested RPM 7", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Requested RPM 8", Type = typeof(UInt16), Units = "", Size = 2},
+
+                new Param {Name = "Current RPM 1", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Current RPM 2", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Current RPM 3", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Current RPM 4", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Current RPM 5", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Current RPM 6", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Current RPM 7", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Current RPM 8", Type = typeof(UInt16), Units = "", Size = 2},
+
+                new Param {Name = "ASI RPM 1", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "ASI RPM 2", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "ASI RPM 3", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "ASI RPM 4", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "ASI RPM 5", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "ASI RPM 6", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "ASI RPM 7", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "ASI RPM 8", Type = typeof(UInt16), Units = "", Size = 2}
+      }
+    }
+}, {PacketTypes.BRAKE_DATA, new PacketDefinition {
+      Name = "Brake data",
+      ParameterPrefix = "Brake ",
+      PacketType =0x1402,
+      Node = "Flight Control",
+      DAQ = false,
+      Parameters = new Param[]{
+                new Param{Name = "Fault flags 1", Type = typeof(UInt32), Units =  "A", Size = 4},
+
+                new Param{Name = "I Beam mm 1 Target", Type = typeof(float), Units =  "mm", Size = 4},
+                new Param{Name = "Lead screw mm 1 Target", Type = typeof(float), Units =  "mm", Size = 4},
+                new Param{Name = "Lead screw um 1 Target", Type = typeof(UInt32), Units =  "um", Size = 4},
+
+                new Param{Name = "I Beam mm 1 Current", Type = typeof(float), Units =  "mm", Size = 4},
+                new Param{Name = "Lead Screw mm 1 Current", Type = typeof(float), Units =  "mm", Size = 4},
+                new Param{Name = "MLP 1 Current", Type = typeof(float), Units =  "mm", Size = 4},
+
+                new Param{Name = "Spare 1", Type = typeof(UInt32), Units =  "", Size = 4},
+                new Param{Name = "Spare 1", Type = typeof(UInt32), Units =  "", Size = 4},
+
+                new Param{Name = "Limit Extend 1", Type = typeof(byte), Units =  "", Size = 1},
+                new Param{Name = "Limit Retract 1", Type = typeof(byte), Units =  "", Size = 1},
+                new Param{Name = "Limit Extend Edge 1", Type = typeof(byte), Units =  "", Size = 1},
+                new Param{Name = "Limit Retract Edge 1", Type = typeof(byte), Units =  "", Size = 1},
+                new Param{Name = "SW Error 1", Type = typeof(byte), Units =  "", Size = 1},
+
+                new Param{Name = "ADC Sample 1", Type = typeof(UInt16), Units =  "", Size = 2},
+                new Param{Name = "ADC Zero 1", Type = typeof(UInt16), Units =  "", Size = 2},
+                new Param{Name = "ADC Minus Zero 1", Type = typeof(UInt32), Units =  "", Size = 4},
+                new Param{Name = "System Span 1", Type = typeof(float), Units =  "", Size = 4},
+                new Param{Name = "Position mm 1", Type = typeof(float), Units =  "mm", Size = 4},
+                new Param{Name = "Linear Velocity 1", Type = typeof(UInt32), Units =  "", Size = 4},
+                new Param{Name = "Linear Acceleration 1", Type = typeof(UInt32), Units =  "", Size = 4},
+                new Param{Name = "Current Position 1", Type = typeof(UInt32), Units =  "", Size = 4},
+
+                new Param{Name = "Fault flags 2", Type = typeof(UInt32), Units =  "A", Size = 4},
+
+                new Param{Name = "I Beam mm 2 Target", Type = typeof(float), Units =  "mm", Size = 4},
+                new Param{Name = "Lead screw mm 2 Target", Type = typeof(float), Units =  "mm", Size = 4},
+                new Param{Name = "Lead screw um 2 Target", Type = typeof(UInt32), Units =  "um", Size = 4},
+
+                new Param{Name = "I Beam mm 2 Current", Type = typeof(float), Units =  "mm", Size = 4},
+                new Param{Name = "Lead Screw mm 2 Current", Type = typeof(float), Units =  "mm", Size = 4},
+                new Param{Name = "MLP 2 Current", Type = typeof(float), Units =  "mm", Size = 4},
+
+                new Param{Name = "Limit Extend 2", Type = typeof(byte), Units =  "", Size = 1},
+                new Param{Name = "Limit Retract 2", Type = typeof(byte), Units =  "", Size = 1},
+                new Param{Name = "Limit Extend Edge 2", Type = typeof(byte), Units =  "", Size = 1},
+                new Param{Name = "Limit Retract Edge 2", Type = typeof(byte), Units =  "", Size = 1},
+                new Param{Name = "SW Error 2", Type = typeof(byte), Units =  "", Size = 1},
+
+                new Param{Name = "ADC Sample 2", Type = typeof(UInt16), Units =  "", Size = 2},
+                new Param{Name = "ADC Zero 2", Type = typeof(UInt16), Units =  "", Size = 2},
+                new Param{Name = "ADC Minus Zero 2", Type = typeof(UInt32), Units =  "", Size = 4},
+                new Param{Name = "System Span 2", Type = typeof(float), Units =  "", Size = 4},
+                new Param{Name = "Position mm 2", Type = typeof(float), Units =  "mm", Size = 4},
+                new Param{Name = "Linear Velocity 2", Type = typeof(UInt32), Units =  "", Size = 4},
+                new Param{Name = "Linear Acceleration 2", Type = typeof(UInt32), Units =  "", Size = 4},
+                new Param{Name = "Current Position 2", Type = typeof(UInt32), Units =  "", Size = 4},
+
+                new Param{Name = "State", Type = typeof(byte), Units =  "", Size = 1},
+                new Param{Name = "Calibration State", Type = typeof(byte), Units =  "", Size = 1}
+      }
+    }
+},
         };
 
         public static UInt16[] CRCHashtable = new UInt16[]

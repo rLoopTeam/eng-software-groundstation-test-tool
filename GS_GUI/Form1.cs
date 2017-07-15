@@ -21,95 +21,48 @@ namespace GS_GUI
             InitializeComponent();
             server = new UDPServer();
             initTabs();
+            initComboBoxes();
         }
 
         private void initTabs()
         {
-            initComboBoxes();
-            initPowerBMSTabControls();
-            initPowerCoolingTabControls();
-            initLaserOptoTabControls();
-            initAccelerometersTabControls();
+            initTabControl(PacketTypes.POWER_A_BMS, tabPowerBMS, 1, 6);
+            initTabControl(PacketTypes.LASER_OPTO_SENSOR, tabLaserOpto, 72, 77);
+            initTabControl(PacketTypes.POWER_A_COOLING, tabPowerCooling, 51, 56);
+            initTabControl(PacketTypes.ACCEL_DATA_FULL, tabAccel, 122, 128);
+            initTabControl(PacketTypes.THROTTLE_PARAMETERS, tabThrottles, 150, 156);
+            initTabControl(PacketTypes.BRAKE_DATA, tabBrakes, 174, 180);
         }
         void initComboBoxes()
         {
-            Enum[] PowerTempDatasource = new Enum[2];
-            Enum[] PowerBMSDatasource = new Enum[2];
-            Enum[] AccelerometersDataSource = new Enum[2];
-
-            Array.Copy(Enum.GetValues(typeof(PacketTypes)), 0, PowerTempDatasource, 0, 2);
-            Array.Copy(Enum.GetValues(typeof(PacketTypes)), 6, PowerBMSDatasource, 0, 2);
-            Array.Copy(Enum.GetValues(typeof(PacketTypes)), 10, AccelerometersDataSource, 0, 2);
-
-            comboBoxPowerTemp.DataSource = PowerTempDatasource;
-            comboBoxPowerBMS.DataSource = PowerBMSDatasource;
-            comboBoxAccelerometers.DataSource = AccelerometersDataSource;
-
+            initComboBox(comboBoxPowerTemp, 0, 2);
+            initComboBox(comboBoxPowerBMS, 6, 2);
+            initComboBox(comboBoxAccelerometers, 10, 2);
         }
 
-        void initPowerBMSTabControls()
+        void initComboBox(ComboBox box, int startPosition, int length)
         {
-            for (int i = 1; i < 51; i++)
-            {
-                String textBoxName = String.Format("textBox{0}", i);
-                TextBox txtBox = (TextBox)tabPowerBMS.Controls[textBoxName];
-                txtBox.Text = "0";
-                txtBox.TabIndex = i + 1;
-                txtBox.KeyPress += checkInputHandler;
-            }
+            Enum[] dataSource = new Enum[length];
+            Array.Copy(Enum.GetValues(typeof(PacketTypes)), startPosition, dataSource, 0, length);
+            box.DataSource = dataSource;
         }
 
-        void initLaserOptoTabControls()
+        void initTabControl(PacketTypes TYPE, TabPage tabPage, int txtBoxOffset, int lblOffset)
         {
-            for (int i = 0; i < AllPackets[PacketTypes.LASER_OPTO_SENSOR].Parameters.Length; i++)
-            {
-                String textBoxName = String.Format("textBox{0}", i+72);
-                String labelName = String.Format("label{0}", i + 77);
+            Param[] parameters = AllPackets[TYPE].Parameters;
 
-                TextBox txtBox = (TextBox)tabLaserOpto.Controls[textBoxName];
-                Label label = (Label)tabLaserOpto.Controls[labelName];
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                String textBoxName = String.Format("textBox{0}", txtBoxOffset + i);
+                String labelName = String.Format("label{0}", lblOffset + i);
+                TextBox txtBox = (TextBox)tabPage.Controls[textBoxName];
+                Label lbl = (Label)tabPage.Controls[labelName];
 
                 txtBox.Text = "0";
                 txtBox.TabIndex = i + 1;
                 txtBox.KeyPress += checkInputHandler;
-
-                label.Text = AllPackets[PacketTypes.LASER_OPTO_SENSOR].Parameters[i].Name;
-
+                lbl.Text = parameters[i].Name;
             }
-
-        }
-
-        void initPowerCoolingTabControls()
-        {
-            for (int i = 0; i < 21; i++)
-            {
-                String textBoxName = String.Format("textBox{0}", 51 + i);
-                String labelName = String.Format("label{0}", 56 + i);
-                TextBox txtBox = (TextBox)tabPowerCooling.Controls[textBoxName];
-                Label lbl = (Label)tabPowerCooling.Controls[labelName];
-
-                txtBox.Text = "0";
-                txtBox.TabIndex = i + 1;
-                txtBox.KeyPress += checkInputHandler;
-                lbl.Text = Constants.AllPackets[PacketTypes.POWER_A_COOLING].Parameters[i].Name;
-            }
-        }
-
-        void initAccelerometersTabControls()
-        {
-            for (int i = 0; i < 28; i++)
-            {
-                String textBoxName = String.Format("textBox{0}", 122 + i);
-                String labelName = String.Format("label{0}", 128 + i);
-                TextBox txtBox = (TextBox)tabAccel.Controls[textBoxName];
-                Label lbl = (Label)tabAccel.Controls[labelName];
-
-                txtBox.Text = "0";
-                txtBox.TabIndex = i + 1;
-                txtBox.KeyPress += checkInputHandler;
-                lbl.Text = Constants.AllPackets[PacketTypes.ACCEL_DATA_FULL].Parameters[i].Name;
-            }
-
         }
 
         //https://stackoverflow.com/a/463335/7948667
@@ -130,7 +83,6 @@ namespace GS_GUI
             {
                 e.Handled = true;
             }
-
         }
 
         private void btnPowerSinglePacket_Click(object sender, EventArgs e)
@@ -169,7 +121,7 @@ namespace GS_GUI
         {
             PacketTypes TYPE = (PacketTypes)comboBoxAccelerometers.SelectedItem;
 
-            if(TYPE == PacketTypes.ACCEL_DATA_FULL)
+            if (TYPE == PacketTypes.ACCEL_DATA_FULL)
             {
                 String[] arrValues = GetValues(tabAccel, PacketTypes.ACCEL_DATA_FULL, 122); ;
                 byte[] udp = PacketMaker.makeUDP(TYPE, arrValues);
@@ -192,9 +144,26 @@ namespace GS_GUI
                 byte[] udp = PacketMaker.makeUDP(TYPE, arrValues);
                 server.sendPacket(udp, TYPE);
             }
-
         }
 
+        private void buttonSinglePacketThrottles_Click(object sender, EventArgs e)
+        {
+            PacketTypes TYPE = PacketTypes.THROTTLE_PARAMETERS;
+
+            String[] arrValues = GetValues(tabThrottles, TYPE, 150);
+            byte[] udp = PacketMaker.makeUDP(TYPE, arrValues);
+            server.sendPacket(udp, TYPE);
+        }
+
+        private void buttonSingleBrakes_Click(object sender, EventArgs e)
+        {
+            PacketTypes TYPE = PacketTypes.BRAKE_DATA;
+
+            String[] arrValues = GetValues(tabBrakes, TYPE, 174);
+            byte[] udp = PacketMaker.makeUDP(TYPE, arrValues);
+            server.sendPacket(udp, TYPE);
+
+        }
         private String GetString(String Tab, String Control)
         {
             TabPage tab = TabControl_Systems.TabPages[Tab];
@@ -218,7 +187,5 @@ namespace GS_GUI
 
             return arrValues;
         }
-
-
     }
 }
