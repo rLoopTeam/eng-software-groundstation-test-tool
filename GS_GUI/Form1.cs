@@ -32,12 +32,77 @@ namespace GS_GUI
             initTabControl(PacketTypes.ACCEL_DATA_FULL, tabAccel, 122, 128);
             initTabControl(PacketTypes.THROTTLE_PARAMETERS, tabThrottles, 150, 156);
             initTabControl(PacketTypes.BRAKE_DATA, tabBrakes, 174, 180);
+            initTabControl(PacketTypes.MOTOR_PARAMETERS, tabSteppers, 220, 226);
         }
         void initComboBoxes()
         {
             initComboBox(comboBoxPowerTemp, 0, 2);
             initComboBox(comboBoxPowerBMS, 6, 2);
             initComboBox(comboBoxAccelerometers, 10, 2);
+        }
+        private void btnPowerSinglePacket_Click(object sender, EventArgs e)
+        {
+            PacketTypes packetType = (PacketTypes)comboBoxPowerTemp.SelectedItem;
+            String[] payload = { tBSpare.Text, tbCount.Text, tBTemp.Text};
+            byte[] udp = PacketMaker.makeUDP(packetType, payload);
+            server.sendPacket(udp, packetType);
+        }
+
+        private void buttonPowerBMSSingle_Click(object sender, EventArgs e)
+        {
+            PacketTypes type = (PacketTypes)comboBoxPowerBMS.SelectedItem;
+            sendSinglePacket(type, tabPowerBMS, 1);
+        }
+
+        private void buttonPowerCoolingSingle_Click(object sender, EventArgs e)
+        {
+            sendSinglePacket(PacketTypes.POWER_A_COOLING, tabPowerCooling, 51);
+        }
+
+        private void buttonSingleLaserOpto_Click(object sender, EventArgs e)
+        {
+            sendSinglePacket(PacketTypes.LASER_OPTO_SENSOR, tabLaserOpto, 72);
+        }
+
+        private void buttonSingleAccelerometers_Click(object sender, EventArgs e)
+        {
+            PacketTypes TYPE = (PacketTypes)comboBoxAccelerometers.SelectedItem;
+
+            if (TYPE == PacketTypes.ACCEL_DATA_FULL)
+            {
+                sendSinglePacket(PacketTypes.ACCEL_DATA_FULL, tabAccel, 122);
+            }
+            else
+            {
+                String val1 = textBox122.Text;
+                String val2 = textBox123.Text;
+                String val3 = textBox124.Text;
+                String val4 = textBox125.Text;
+
+                String val5 = textBox136.Text;
+                String val6 = textBox137.Text;
+                String val7 = textBox138.Text;
+                String val8 = textBox139.Text;
+
+                String[] arrValues = { val1, val2, val3, val4, val5, val6, val7, val8 };
+                byte[] udp = PacketMaker.makeUDP(TYPE, arrValues);
+                server.sendPacket(udp, TYPE);
+            }
+        }
+
+        private void buttonSinglePacketThrottles_Click(object sender, EventArgs e)
+        {
+            sendSinglePacket(PacketTypes.THROTTLE_PARAMETERS, tabThrottles, 150);
+        }
+
+        private void buttonSingleBrakes_Click(object sender, EventArgs e)
+        {
+            sendSinglePacket(PacketTypes.BRAKE_DATA, tabBrakes, 174);
+        }
+
+        private void buttonSingleSteppers_Click(object sender, EventArgs e)
+        {
+            sendSinglePacket(PacketTypes.MOTOR_PARAMETERS, tabSteppers, 220);
         }
 
         void initComboBox(ComboBox box, int startPosition, int length)
@@ -85,92 +150,12 @@ namespace GS_GUI
             }
         }
 
-        private void btnPowerSinglePacket_Click(object sender, EventArgs e)
+        void sendSinglePacket(PacketTypes packetType, TabPage page, int textBoxOffset)
         {
-            PacketTypes packetType = (PacketTypes)comboBoxPowerTemp.SelectedItem;
-            String[] payload = { GetString("tabPowerTemp", "tBSpare"), GetString("tabPowerTemp", "tBCount"), GetString("tabPowerTemp", "tBTemp") };
-            byte[] udp = PacketMaker.makeUDP(packetType, payload);
+            String[] arrValues = GetValues(page, packetType, textBoxOffset);
+            byte[] udp = PacketMaker.makeUDP(packetType, arrValues);
             server.sendPacket(udp, packetType);
         }
-
-        private void buttonPowerBMSSingle_Click(object sender, EventArgs e)
-        {
-            PacketTypes type = (PacketTypes)comboBoxPowerBMS.SelectedItem;
-            String[] arrValues = GetValues(tabPowerBMS, type, 1);
-            byte[] udp = PacketMaker.makeUDP(type, arrValues);
-            server.sendPacket(udp, type);
-        }
-
-        private void buttonPowerCoolingSingle_Click(object sender, EventArgs e)
-        {
-            String[] arrValues = GetValues(tabPowerCooling, PacketTypes.POWER_A_COOLING, 51);
-            byte[] udp = PacketMaker.makeUDP(PacketTypes.POWER_A_COOLING, arrValues);
-            server.sendPacket(udp, PacketTypes.POWER_A_COOLING);
-        }
-
-        private void buttonSingleLaserOpto_Click(object sender, EventArgs e)
-        {
-            PacketTypes TYPE = PacketTypes.LASER_OPTO_SENSOR;
-
-            String[] arrValues = GetValues(tabLaserOpto, TYPE, 72);
-            byte[] udp = PacketMaker.makeUDP(TYPE, arrValues);
-            server.sendPacket(udp, TYPE);
-        }
-
-        private void buttonSingleAccelerometers_Click(object sender, EventArgs e)
-        {
-            PacketTypes TYPE = (PacketTypes)comboBoxAccelerometers.SelectedItem;
-
-            if (TYPE == PacketTypes.ACCEL_DATA_FULL)
-            {
-                String[] arrValues = GetValues(tabAccel, PacketTypes.ACCEL_DATA_FULL, 122); ;
-                byte[] udp = PacketMaker.makeUDP(TYPE, arrValues);
-                server.sendPacket(udp, TYPE);
-
-            }
-            else
-            {
-                String val1 = textBox122.Text;
-                String val2 = textBox123.Text;
-                String val3 = textBox124.Text;
-                String val4 = textBox125.Text;
-
-                String val5 = textBox136.Text;
-                String val6 = textBox137.Text;
-                String val7 = textBox138.Text;
-                String val8 = textBox139.Text;
-
-                String[] arrValues = { val1, val2, val3, val4, val5, val6, val7, val8 };
-                byte[] udp = PacketMaker.makeUDP(TYPE, arrValues);
-                server.sendPacket(udp, TYPE);
-            }
-        }
-
-        private void buttonSinglePacketThrottles_Click(object sender, EventArgs e)
-        {
-            PacketTypes TYPE = PacketTypes.THROTTLE_PARAMETERS;
-
-            String[] arrValues = GetValues(tabThrottles, TYPE, 150);
-            byte[] udp = PacketMaker.makeUDP(TYPE, arrValues);
-            server.sendPacket(udp, TYPE);
-        }
-
-        private void buttonSingleBrakes_Click(object sender, EventArgs e)
-        {
-            PacketTypes TYPE = PacketTypes.BRAKE_DATA;
-
-            String[] arrValues = GetValues(tabBrakes, TYPE, 174);
-            byte[] udp = PacketMaker.makeUDP(TYPE, arrValues);
-            server.sendPacket(udp, TYPE);
-
-        }
-        private String GetString(String Tab, String Control)
-        {
-            TabPage tab = TabControl_Systems.TabPages[Tab];
-            String str = tab.Controls[Control].Text;
-            return str;
-        }
-
 
         private String[] GetValues(TabPage page, PacketTypes type, int TextBoxOffset)
         {

@@ -13,7 +13,7 @@ namespace GS_LOGIC
         public String Name { get; set; }
         public String ParameterPrefix { get; set; }
         public int PacketType { get; set; }
-        public String Node { get; set; }
+        public Nodes Node { get; set; }
         public Boolean DAQ { get; set; }
         public Param[] Parameters { get; set; }
 

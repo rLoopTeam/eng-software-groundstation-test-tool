@@ -20,7 +20,7 @@ namespace GS_LOGIC
 
         public void sendPacket(byte[] packet,PacketTypes packetType)
         {
-            int port = Remotes[NodesTypes[packetType]];
+            int port = Remotes[AllPackets[packetType].Node];
             IPEndPoint host = new IPEndPoint(IPAddress.Broadcast, port);
             server.Send(packet, packet.Length, host);
         }

@@ -105,7 +105,7 @@ namespace GS_LOGIC
       Name =  "Power A BMS",
       ParameterPrefix = "Power A BMS ",
       PacketType = 0x3401,
-      Node= "Power Node A",
+      Node= Nodes.POWER_NODE_A,
       DAQ= false,
       Parameters =new Param[] {
                 new Param {Name =  "Faults", Type = typeof(UInt32), Units = "", Size = 4},
@@ -166,7 +166,7 @@ namespace GS_LOGIC
       Name =  "Power B BMS",
       ParameterPrefix = "Power B BMS ",
       PacketType = 0x3401,
-      Node= "Power Node B",
+      Node= Nodes.POWER_NODE_B,
       DAQ= false,
       Parameters =new Param[] {
                 new Param {Name =  "Faults", Type = typeof(UInt32), Units = "", Size = 4},
@@ -226,7 +226,7 @@ namespace GS_LOGIC
       Name = "Power A Cooling",
       ParameterPrefix = "Power A Cooling ",
       PacketType = 0x3601,
-      Node = "Power Node A",
+      Node = Nodes.POWER_NODE_A,
       DAQ = false,
       Parameters = new Param[] {
                 new Param {Name = "State", Type = typeof(byte), Units = "", Size = 1},
@@ -258,7 +258,7 @@ namespace GS_LOGIC
       Name = "Laser Opto Sensor",
       ParameterPrefix = "LaserOpto ",
       PacketType = 0x1101,
-      Node = "Flight Control",
+      Node = Nodes.FLIGHT_CONTROL,
       DAQ = false,
       Parameters = new Param[] {
                 new Param{Name = "Fault flags", Type = typeof(UInt32), Units = "", Size = 4}, // top-level fault flags
@@ -326,7 +326,7 @@ namespace GS_LOGIC
       Name = "Accel Cal Full",
       ParameterPrefix = "Accel ",
       PacketType = 0x1001,
-      Node = "Flight Control",
+      Node = Nodes.FLIGHT_CONTROL,
       DAQ = false,
       Parameters = new Param[] {
                 new Param {Name = "0 Flags", Type = typeof(UInt32), Units = "", Size = 4},
@@ -346,7 +346,7 @@ namespace GS_LOGIC
       Name = "Accel Data Full",
       ParameterPrefix = "Accel ",
       PacketType = 0x1003,
-      Node = "Flight Control",
+      Node = Nodes.FLIGHT_CONTROL,
       DAQ = false,
       Parameters = new Param[] {
                 new Param {Name = "0 Flags", Type = typeof(UInt32), Units = "", Size = 4},
@@ -385,7 +385,7 @@ namespace GS_LOGIC
       Name = "Throttle parameters",
       ParameterPrefix = "Throttle ",
       PacketType = 0x1503,
-      Node = "Flight Control",
+      Node = Nodes.FLIGHT_CONTROL,
       DAQ = false,
       Parameters = new Param[]{
                 new Param {Name = "Requested RPM 1", Type = typeof(UInt16), Units = "", Size = 2},
@@ -420,7 +420,7 @@ namespace GS_LOGIC
       Name = "Brake data",
       ParameterPrefix = "Brake ",
       PacketType =0x1402,
-      Node = "Flight Control",
+      Node = Nodes.FLIGHT_CONTROL,
       DAQ = false,
       Parameters = new Param[]{
                 new Param{Name = "Fault flags 1", Type = typeof(UInt32), Units =  "A", Size = 4},
@@ -480,7 +480,186 @@ namespace GS_LOGIC
                 new Param{Name = "Calibration State", Type = typeof(byte), Units =  "", Size = 1}
       }
     }
-},
+}, {PacketTypes.MOTOR_PARAMETERS, new PacketDefinition
+       {
+      Name = "Motor parameters",
+      ParameterPrefix = "Motor ",
+      PacketType = 0x1406,
+      Node = Nodes.FLIGHT_CONTROL,
+      DAQ = false,
+      Parameters = new Param[] {
+                new Param{Name = "Microstep Resolution 1", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Max Acceleration 1", Type = typeof(Int32), Units = "", Size = 4},
+                new Param{Name = "Microns per Revolution 1", Type = typeof(Int32), Units = "", Size = 4},
+                new Param{Name = "Steps per Revolution 1", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Max Angular Velocity 1", Type = typeof(Int32), Units = "", Size = 4},
+
+                new Param{Name = "Microstep Resolution 2", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Max Acceleration 2", Type = typeof(Int32), Units = "", Size = 4},
+                new Param{Name = "Microns per Revolution 2", Type = typeof(Int32), Units = "", Size = 4},
+                new Param{Name = "Steps per Revolution 2", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Max Angular Velocity 2", Type = typeof(Int32), Units = "", Size = 4},
+                new Param{Name = "Lowest Cell Volts", Type = typeof(float), Units = "", Size = 4}
+      }
+    }
+            },
+    {PacketTypes.FORWARD_LASER_DISTANCE_SENSOR, new PacketDefinition {
+      Name = "Forward Laser Distance Sensor",
+      ParameterPrefix = "ForwardLaser ",
+      PacketType = 0x1201,
+      Node = Nodes.FLIGHT_CONTROL,
+      DAQ = false,
+      Parameters = new Param[] {
+                new Param{Name = "Fault flags", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Spare 0", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Spare 1", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "RAW value", Type = typeof(float), Units = "", Size = 4},
+                new Param{Name = "Filtered value", Type = typeof(float), Units = "mm", Size = 4},
+                new Param{Name = "Spare 3", Type = typeof(UInt32), Units = "", Size = 4}
+      }
+            }
+    },{PacketTypes.FLIGHT_CONTROL_LASER_CONTRAST_0, new PacketDefinition {
+      Name = "Flight Control - Laser Contrast 0",
+      ParameterPrefix = "LaserContrast0 ",
+      PacketType = 0x1301,
+      Node = Nodes.FLIGHT_CONTROL,
+      DAQ = false,
+      Parameters = new Param[] {
+                new Param{Name = "System Fault Flags", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Spare 0", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Spare 1", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Spare 2", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Spare 3", Type = typeof(UInt32), Units = "", Size = 4},
+
+                new Param{Name = "Laser Fault Flags", Type = typeof(UInt32), Units = "", Size = 4},
+
+                new Param{Name = "Rising Count", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param{Name = "Falling Count", Type = typeof(UInt16), Units = "", Size = 2},
+
+                // 55 stripes
+                new Param{Name = "Rise_00", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_01", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_02", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_03", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_04", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_05", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_06", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_07", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_08", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_09", Type = typeof(UInt64), Units = "ns", Size = 8},
+
+                new Param{Name = "Rise_10", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_11", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_12", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_13", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_14", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_15", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_16", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_17", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_18", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_19", Type = typeof(UInt64), Units = "ns", Size = 8},
+
+                new Param{Name = "Rise_20", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_21", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_22", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_23", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_24", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_25", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_26", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_27", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_28", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_29", Type = typeof(UInt64), Units = "ns", Size = 8},
+
+                new Param{Name = "Rise_30", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_31", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_32", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_33", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_34", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_35", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_36", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_37", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_38", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_39", Type = typeof(UInt64), Units = "ns", Size = 8},
+
+                new Param{Name = "Rise_40", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_41", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_42", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_43", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_44", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_45", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_46", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_47", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_48", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_49", Type = typeof(UInt64), Units = "ns", Size = 8},
+
+                new Param{Name = "Rise_50", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_51", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_52", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Rise_53", Type = typeof(UInt64), Units = "ns", Size = 8},
+
+                // 55 stripes
+                new Param{Name = "Fall_00", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_01", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_02", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_03", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_04", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_05", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_06", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_07", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_08", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_09", Type = typeof(UInt64), Units = "ns", Size = 8},
+
+                new Param{Name = "Fall_10", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_11", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_12", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_13", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_14", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_15", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_16", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_17", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_18", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_19", Type = typeof(UInt64), Units = "ns", Size = 8},
+
+                new Param{Name = "Fall_20", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_21", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_22", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_23", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_24", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_25", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_26", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_27", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_28", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_29", Type = typeof(UInt64), Units = "ns", Size = 8},
+
+                new Param{Name = "Fall_30", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_31", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_32", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_33", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_34", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_35", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_36", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_37", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_38", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_39", Type = typeof(UInt64), Units = "ns", Size = 8},
+
+                new Param{Name = "Fall_40", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_41", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_42", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_43", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_44", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_45", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_46", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_47", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_48", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_49", Type = typeof(UInt64), Units = "ns", Size = 8},
+
+                new Param{Name = "Fall_50", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_51", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_52", Type = typeof(UInt64), Units = "ns", Size = 8},
+                new Param{Name = "Fall_53", Type = typeof(UInt64), Units = "ns", Size = 8}
+      }
+    }
+    },
         };
 
         public static UInt16[] CRCHashtable = new UInt16[]
