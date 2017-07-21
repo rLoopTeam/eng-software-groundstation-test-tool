@@ -172,7 +172,7 @@ namespace GS_GUI
             //sends the packet to the relevant port using the packettype
             server.sendPacket(udp, packetType);
         }
-
+        //this one is used to retrieve the values from the textboxes from a certain tab, using the tabpage, packettype and the offset from which the textboxnumbering begins
         private String[] GetValues(TabPage page, PacketTypes type, int TextBoxOffset)
         {
             var parameters = Constants.AllPackets[type].Parameters;

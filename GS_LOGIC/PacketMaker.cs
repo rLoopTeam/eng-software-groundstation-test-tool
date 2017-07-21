@@ -12,9 +12,9 @@ namespace GS_LOGIC
     {
         public static byte[] makeUDP(PacketTypes type, String[] stringValues)
         {
-
+            //convert the represented string values to bytes
             byte[] payload = retrievePayload(type, stringValues);
-
+            //initialize sizes, these correspond to the udp packet structures
             int sequenceSize = 4;
             int packetTypeSize = 2;
             int payloadLengthDef = 2;
@@ -44,12 +44,7 @@ namespace GS_LOGIC
             packet[5] = packettype[1];
             packet[6] = payloadLength[0];
             packet[7] = payloadLength[1];
-
-
-            for (int i = 0; i < payload.Length; i++)
-            {
-                packet[8 + i] = payload[i];
-            }
+            packet.Insert(8, payload);
 
             byte[] crc = CalculateCRC(packet, packetSize-2);
 
@@ -68,27 +63,25 @@ namespace GS_LOGIC
         {
             var parameters = Constants.AllPackets[type].Parameters;
 
-            //Establish the payloadsize
             int payloadSize = 0;
-
+            //establish the final payload byte size
             foreach (var elem in parameters)
             {
                 payloadSize += elem.Size;
             }
 
-
             byte[] payload = new byte[payloadSize];
             int nextPayloadPosition = 0;
 
+            //loop through all the values and convert them all to bytes
             for (int i = 0; i < parameters.Length; i++)
             {
                 String value = values[i];
+                //convert the value into byte-array
                 byte[] parameterByteArray = GetByteArray(value, parameters[i].Type);
-                for (int y = 0; y < parameters[i].Size; y++)
-                {
-                    payload[nextPayloadPosition] = parameterByteArray[y];
-                    nextPayloadPosition++;
-                }
+                //insert converted values into the payload array
+                payload.Insert(nextPayloadPosition, parameterByteArray);
+                nextPayloadPosition += parameters[i].Size;
             }
 
             return payload;
@@ -96,7 +89,7 @@ namespace GS_LOGIC
 
         public static byte[] CalculateCRC(byte[] packet, int packetLength)
         {
-            //from current GS
+            //VOODOO CRC calculation extracted from current GS
             var crc = 0x0000;
 
             int j, i, c;

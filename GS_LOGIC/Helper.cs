@@ -10,17 +10,13 @@ namespace GS_LOGIC
     {
         public static void Insert<T>(this T[] current, int position, T[] other)
         {
-            int indexOther = 0;
-            int lengthOther = other.Length;
-
-            for(int i = position; i< current.Length; i++)
+            for (int i = 0; i < other.Length; i++)
             {
-                current[i] = other[indexOther];
-                indexOther++;
+                current[position] = other[i];
+                position++;
 
-                if (indexOther == lengthOther) return;
+                if (position == current.Length) return;
             }
-
         }
     }
 }
