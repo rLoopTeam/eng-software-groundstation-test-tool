@@ -41,7 +41,7 @@ namespace GS_GUI
             initComboBox(comboBoxAccelerometers, 10, 2);
         }
 
-        //This action is tied to the 'Single Packet' button of the 'Power Temp' tab
+        //This action is tied to the 'Send Packet' button of the 'Power Temp' tab
         private void btnPowerSinglePacket_Click(object sender, EventArgs e)
         {
             PacketTypes packetType = (PacketTypes)comboBoxPowerTemp.SelectedItem;
@@ -49,23 +49,23 @@ namespace GS_GUI
             byte[] udp = PacketMaker.makeUDP(packetType, payload);
             server.sendPacket(udp, packetType);
         }
-        //This action is tied to the 'Send Single Packet' button of the 'Power BMS' tab
+        //This action is tied to the 'Send Packet' button of the 'Power BMS' tab
         private void buttonPowerBMSSingle_Click(object sender, EventArgs e)
         {
             PacketTypes type = (PacketTypes)comboBoxPowerBMS.SelectedItem;
             sendSinglePacket(type, tabPowerBMS, 1);
         }
-        //This action is tied to the 'Send Single' button of the 'Power Cooling' tab
+        //This action is tied to the 'Send Packet' button of the 'Power Cooling' tab
         private void buttonPowerCoolingSingle_Click(object sender, EventArgs e)
         {
             sendSinglePacket(PacketTypes.POWER_A_COOLING, tabPowerCooling, 51);
         }
-        //This action is tied to the 'Send' button of the 'Laser Opto' tab
+        //This action is tied to the 'Send Packet' button of the 'Laser Opto' tab
         private void buttonSingleLaserOpto_Click(object sender, EventArgs e)
         {
             sendSinglePacket(PacketTypes.LASER_OPTO_SENSOR, tabLaserOpto, 72);
         }
-        //This action is tied to the 'Send' button of the 'Accelerometers' tab
+        //This action is tied to the 'Send Packet' button of the 'Accelerometers' tab
         private void buttonSingleAccelerometers_Click(object sender, EventArgs e)
         {
             PacketTypes TYPE = (PacketTypes)comboBoxAccelerometers.SelectedItem;

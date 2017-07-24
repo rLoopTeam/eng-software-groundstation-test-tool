@@ -36,8 +36,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnPowerStopStream = new System.Windows.Forms.Button();
-            this.btnPowerStartStream = new System.Windows.Forms.Button();
             this.btnPowerSinglePacket = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxPowerTemp = new System.Windows.Forms.ComboBox();
@@ -497,29 +495,29 @@
             this.textBox174 = new System.Windows.Forms.TextBox();
             this.label180 = new System.Windows.Forms.Label();
             this.tabSteppers = new System.Windows.Forms.TabPage();
-            this.label226 = new System.Windows.Forms.Label();
-            this.textBox220 = new System.Windows.Forms.TextBox();
-            this.label227 = new System.Windows.Forms.Label();
-            this.textBox221 = new System.Windows.Forms.TextBox();
-            this.label228 = new System.Windows.Forms.Label();
-            this.textBox222 = new System.Windows.Forms.TextBox();
-            this.label229 = new System.Windows.Forms.Label();
-            this.textBox223 = new System.Windows.Forms.TextBox();
-            this.label230 = new System.Windows.Forms.Label();
-            this.textBox224 = new System.Windows.Forms.TextBox();
-            this.label231 = new System.Windows.Forms.Label();
-            this.textBox225 = new System.Windows.Forms.TextBox();
-            this.label232 = new System.Windows.Forms.Label();
-            this.textBox226 = new System.Windows.Forms.TextBox();
-            this.label233 = new System.Windows.Forms.Label();
-            this.textBox227 = new System.Windows.Forms.TextBox();
-            this.label234 = new System.Windows.Forms.Label();
-            this.textBox228 = new System.Windows.Forms.TextBox();
-            this.label235 = new System.Windows.Forms.Label();
-            this.textBox229 = new System.Windows.Forms.TextBox();
-            this.label236 = new System.Windows.Forms.Label();
-            this.textBox230 = new System.Windows.Forms.TextBox();
             this.buttonSingleSteppers = new System.Windows.Forms.Button();
+            this.textBox230 = new System.Windows.Forms.TextBox();
+            this.label236 = new System.Windows.Forms.Label();
+            this.textBox229 = new System.Windows.Forms.TextBox();
+            this.label235 = new System.Windows.Forms.Label();
+            this.textBox228 = new System.Windows.Forms.TextBox();
+            this.label234 = new System.Windows.Forms.Label();
+            this.textBox227 = new System.Windows.Forms.TextBox();
+            this.label233 = new System.Windows.Forms.Label();
+            this.textBox226 = new System.Windows.Forms.TextBox();
+            this.label232 = new System.Windows.Forms.Label();
+            this.textBox225 = new System.Windows.Forms.TextBox();
+            this.label231 = new System.Windows.Forms.Label();
+            this.textBox224 = new System.Windows.Forms.TextBox();
+            this.label230 = new System.Windows.Forms.Label();
+            this.textBox223 = new System.Windows.Forms.TextBox();
+            this.label229 = new System.Windows.Forms.Label();
+            this.textBox222 = new System.Windows.Forms.TextBox();
+            this.label228 = new System.Windows.Forms.Label();
+            this.textBox221 = new System.Windows.Forms.TextBox();
+            this.label227 = new System.Windows.Forms.Label();
+            this.textBox220 = new System.Windows.Forms.TextBox();
+            this.label226 = new System.Windows.Forms.Label();
             this.TabControl_Systems.SuspendLayout();
             this.tabPowerTemp.SuspendLayout();
             this.tabPowerBMS.SuspendLayout();
@@ -556,8 +554,6 @@
             this.tabPowerTemp.Controls.Add(this.label5);
             this.tabPowerTemp.Controls.Add(this.label4);
             this.tabPowerTemp.Controls.Add(this.label3);
-            this.tabPowerTemp.Controls.Add(this.btnPowerStopStream);
-            this.tabPowerTemp.Controls.Add(this.btnPowerStartStream);
             this.tabPowerTemp.Controls.Add(this.btnPowerSinglePacket);
             this.tabPowerTemp.Controls.Add(this.label2);
             this.tabPowerTemp.Controls.Add(this.comboBoxPowerTemp);
@@ -625,26 +621,6 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Count:";
             // 
-            // btnPowerStopStream
-            // 
-            this.btnPowerStopStream.Location = new System.Drawing.Point(1184, 79);
-            this.btnPowerStopStream.Margin = new System.Windows.Forms.Padding(4);
-            this.btnPowerStopStream.Name = "btnPowerStopStream";
-            this.btnPowerStopStream.Size = new System.Drawing.Size(112, 28);
-            this.btnPowerStopStream.TabIndex = 4;
-            this.btnPowerStopStream.Text = "StopStream";
-            this.btnPowerStopStream.UseVisualStyleBackColor = true;
-            // 
-            // btnPowerStartStream
-            // 
-            this.btnPowerStartStream.Location = new System.Drawing.Point(1064, 79);
-            this.btnPowerStartStream.Margin = new System.Windows.Forms.Padding(4);
-            this.btnPowerStartStream.Name = "btnPowerStartStream";
-            this.btnPowerStartStream.Size = new System.Drawing.Size(112, 28);
-            this.btnPowerStartStream.TabIndex = 4;
-            this.btnPowerStartStream.Text = "Start Stream";
-            this.btnPowerStartStream.UseVisualStyleBackColor = true;
-            // 
             // btnPowerSinglePacket
             // 
             this.btnPowerSinglePacket.Location = new System.Drawing.Point(1064, 43);
@@ -652,7 +628,7 @@
             this.btnPowerSinglePacket.Name = "btnPowerSinglePacket";
             this.btnPowerSinglePacket.Size = new System.Drawing.Size(112, 28);
             this.btnPowerSinglePacket.TabIndex = 3;
-            this.btnPowerSinglePacket.Text = "Single Packet";
+            this.btnPowerSinglePacket.Text = "Send Packet";
             this.btnPowerSinglePacket.UseVisualStyleBackColor = true;
             this.btnPowerSinglePacket.Click += new System.EventHandler(this.btnPowerSinglePacket_Click);
             // 
@@ -805,7 +781,7 @@
             this.buttonPowerBMSSingle.Name = "buttonPowerBMSSingle";
             this.buttonPowerBMSSingle.Size = new System.Drawing.Size(151, 28);
             this.buttonPowerBMSSingle.TabIndex = 53;
-            this.buttonPowerBMSSingle.Text = "Send Single Packet";
+            this.buttonPowerBMSSingle.Text = "Send Packet";
             this.buttonPowerBMSSingle.UseVisualStyleBackColor = true;
             this.buttonPowerBMSSingle.Click += new System.EventHandler(this.buttonPowerBMSSingle_Click);
             // 
@@ -1781,7 +1757,7 @@
             this.buttonPowerCoolingSingle.Name = "buttonPowerCoolingSingle";
             this.buttonPowerCoolingSingle.Size = new System.Drawing.Size(157, 28);
             this.buttonPowerCoolingSingle.TabIndex = 80;
-            this.buttonPowerCoolingSingle.Text = "Send Single";
+            this.buttonPowerCoolingSingle.Text = "Send Packet";
             this.buttonPowerCoolingSingle.UseVisualStyleBackColor = true;
             this.buttonPowerCoolingSingle.Click += new System.EventHandler(this.buttonPowerCoolingSingle_Click);
             // 
@@ -4972,165 +4948,22 @@
             this.tabSteppers.Text = "Steppers";
             this.tabSteppers.UseVisualStyleBackColor = true;
             // 
-            // label226
+            // buttonSingleSteppers
             // 
-            this.label226.AutoSize = true;
-            this.label226.Location = new System.Drawing.Point(44, 92);
-            this.label226.Name = "label226";
-            this.label226.Size = new System.Drawing.Size(62, 17);
-            this.label226.TabIndex = 0;
-            this.label226.Text = "label226";
+            this.buttonSingleSteppers.Location = new System.Drawing.Point(1062, 92);
+            this.buttonSingleSteppers.Name = "buttonSingleSteppers";
+            this.buttonSingleSteppers.Size = new System.Drawing.Size(106, 23);
+            this.buttonSingleSteppers.TabIndex = 0;
+            this.buttonSingleSteppers.Text = "Send Packet";
+            this.buttonSingleSteppers.UseVisualStyleBackColor = true;
+            this.buttonSingleSteppers.Click += new System.EventHandler(this.buttonSingleSteppers_Click);
             // 
-            // textBox220
+            // textBox230
             // 
-            this.textBox220.Location = new System.Drawing.Point(243, 89);
-            this.textBox220.Name = "textBox220";
-            this.textBox220.Size = new System.Drawing.Size(100, 22);
-            this.textBox220.TabIndex = 1;
-            // 
-            // label227
-            // 
-            this.label227.AutoSize = true;
-            this.label227.Location = new System.Drawing.Point(44, 120);
-            this.label227.Name = "label227";
-            this.label227.Size = new System.Drawing.Size(62, 17);
-            this.label227.TabIndex = 0;
-            this.label227.Text = "label226";
-            // 
-            // textBox221
-            // 
-            this.textBox221.Location = new System.Drawing.Point(243, 117);
-            this.textBox221.Name = "textBox221";
-            this.textBox221.Size = new System.Drawing.Size(100, 22);
-            this.textBox221.TabIndex = 1;
-            // 
-            // label228
-            // 
-            this.label228.AutoSize = true;
-            this.label228.Location = new System.Drawing.Point(44, 148);
-            this.label228.Name = "label228";
-            this.label228.Size = new System.Drawing.Size(62, 17);
-            this.label228.TabIndex = 0;
-            this.label228.Text = "label226";
-            // 
-            // textBox222
-            // 
-            this.textBox222.Location = new System.Drawing.Point(243, 145);
-            this.textBox222.Name = "textBox222";
-            this.textBox222.Size = new System.Drawing.Size(100, 22);
-            this.textBox222.TabIndex = 1;
-            // 
-            // label229
-            // 
-            this.label229.AutoSize = true;
-            this.label229.Location = new System.Drawing.Point(44, 176);
-            this.label229.Name = "label229";
-            this.label229.Size = new System.Drawing.Size(62, 17);
-            this.label229.TabIndex = 0;
-            this.label229.Text = "label226";
-            // 
-            // textBox223
-            // 
-            this.textBox223.Location = new System.Drawing.Point(243, 173);
-            this.textBox223.Name = "textBox223";
-            this.textBox223.Size = new System.Drawing.Size(100, 22);
-            this.textBox223.TabIndex = 1;
-            // 
-            // label230
-            // 
-            this.label230.AutoSize = true;
-            this.label230.Location = new System.Drawing.Point(44, 204);
-            this.label230.Name = "label230";
-            this.label230.Size = new System.Drawing.Size(62, 17);
-            this.label230.TabIndex = 0;
-            this.label230.Text = "label226";
-            // 
-            // textBox224
-            // 
-            this.textBox224.Location = new System.Drawing.Point(243, 201);
-            this.textBox224.Name = "textBox224";
-            this.textBox224.Size = new System.Drawing.Size(100, 22);
-            this.textBox224.TabIndex = 1;
-            // 
-            // label231
-            // 
-            this.label231.AutoSize = true;
-            this.label231.Location = new System.Drawing.Point(501, 92);
-            this.label231.Name = "label231";
-            this.label231.Size = new System.Drawing.Size(62, 17);
-            this.label231.TabIndex = 0;
-            this.label231.Text = "label226";
-            // 
-            // textBox225
-            // 
-            this.textBox225.Location = new System.Drawing.Point(700, 87);
-            this.textBox225.Name = "textBox225";
-            this.textBox225.Size = new System.Drawing.Size(100, 22);
-            this.textBox225.TabIndex = 1;
-            // 
-            // label232
-            // 
-            this.label232.AutoSize = true;
-            this.label232.Location = new System.Drawing.Point(501, 120);
-            this.label232.Name = "label232";
-            this.label232.Size = new System.Drawing.Size(62, 17);
-            this.label232.TabIndex = 0;
-            this.label232.Text = "label226";
-            // 
-            // textBox226
-            // 
-            this.textBox226.Location = new System.Drawing.Point(700, 117);
-            this.textBox226.Name = "textBox226";
-            this.textBox226.Size = new System.Drawing.Size(100, 22);
-            this.textBox226.TabIndex = 1;
-            // 
-            // label233
-            // 
-            this.label233.AutoSize = true;
-            this.label233.Location = new System.Drawing.Point(501, 148);
-            this.label233.Name = "label233";
-            this.label233.Size = new System.Drawing.Size(62, 17);
-            this.label233.TabIndex = 0;
-            this.label233.Text = "label226";
-            // 
-            // textBox227
-            // 
-            this.textBox227.Location = new System.Drawing.Point(700, 145);
-            this.textBox227.Name = "textBox227";
-            this.textBox227.Size = new System.Drawing.Size(100, 22);
-            this.textBox227.TabIndex = 1;
-            // 
-            // label234
-            // 
-            this.label234.AutoSize = true;
-            this.label234.Location = new System.Drawing.Point(501, 176);
-            this.label234.Name = "label234";
-            this.label234.Size = new System.Drawing.Size(62, 17);
-            this.label234.TabIndex = 0;
-            this.label234.Text = "label226";
-            // 
-            // textBox228
-            // 
-            this.textBox228.Location = new System.Drawing.Point(700, 173);
-            this.textBox228.Name = "textBox228";
-            this.textBox228.Size = new System.Drawing.Size(100, 22);
-            this.textBox228.TabIndex = 1;
-            // 
-            // label235
-            // 
-            this.label235.AutoSize = true;
-            this.label235.Location = new System.Drawing.Point(501, 204);
-            this.label235.Name = "label235";
-            this.label235.Size = new System.Drawing.Size(62, 17);
-            this.label235.TabIndex = 0;
-            this.label235.Text = "label226";
-            // 
-            // textBox229
-            // 
-            this.textBox229.Location = new System.Drawing.Point(700, 201);
-            this.textBox229.Name = "textBox229";
-            this.textBox229.Size = new System.Drawing.Size(100, 22);
-            this.textBox229.TabIndex = 1;
+            this.textBox230.Location = new System.Drawing.Point(700, 229);
+            this.textBox230.Name = "textBox230";
+            this.textBox230.Size = new System.Drawing.Size(100, 22);
+            this.textBox230.TabIndex = 1;
             // 
             // label236
             // 
@@ -5141,22 +4974,165 @@
             this.label236.TabIndex = 0;
             this.label236.Text = "label226";
             // 
-            // textBox230
+            // textBox229
             // 
-            this.textBox230.Location = new System.Drawing.Point(700, 229);
-            this.textBox230.Name = "textBox230";
-            this.textBox230.Size = new System.Drawing.Size(100, 22);
-            this.textBox230.TabIndex = 1;
+            this.textBox229.Location = new System.Drawing.Point(700, 201);
+            this.textBox229.Name = "textBox229";
+            this.textBox229.Size = new System.Drawing.Size(100, 22);
+            this.textBox229.TabIndex = 1;
             // 
-            // buttonSingleSteppers
+            // label235
             // 
-            this.buttonSingleSteppers.Location = new System.Drawing.Point(1062, 92);
-            this.buttonSingleSteppers.Name = "buttonSingleSteppers";
-            this.buttonSingleSteppers.Size = new System.Drawing.Size(106, 23);
-            this.buttonSingleSteppers.TabIndex = 0;
-            this.buttonSingleSteppers.Text = "Send Packet";
-            this.buttonSingleSteppers.UseVisualStyleBackColor = true;
-            this.buttonSingleSteppers.Click += new System.EventHandler(this.buttonSingleSteppers_Click);
+            this.label235.AutoSize = true;
+            this.label235.Location = new System.Drawing.Point(501, 204);
+            this.label235.Name = "label235";
+            this.label235.Size = new System.Drawing.Size(62, 17);
+            this.label235.TabIndex = 0;
+            this.label235.Text = "label226";
+            // 
+            // textBox228
+            // 
+            this.textBox228.Location = new System.Drawing.Point(700, 173);
+            this.textBox228.Name = "textBox228";
+            this.textBox228.Size = new System.Drawing.Size(100, 22);
+            this.textBox228.TabIndex = 1;
+            // 
+            // label234
+            // 
+            this.label234.AutoSize = true;
+            this.label234.Location = new System.Drawing.Point(501, 176);
+            this.label234.Name = "label234";
+            this.label234.Size = new System.Drawing.Size(62, 17);
+            this.label234.TabIndex = 0;
+            this.label234.Text = "label226";
+            // 
+            // textBox227
+            // 
+            this.textBox227.Location = new System.Drawing.Point(700, 145);
+            this.textBox227.Name = "textBox227";
+            this.textBox227.Size = new System.Drawing.Size(100, 22);
+            this.textBox227.TabIndex = 1;
+            // 
+            // label233
+            // 
+            this.label233.AutoSize = true;
+            this.label233.Location = new System.Drawing.Point(501, 148);
+            this.label233.Name = "label233";
+            this.label233.Size = new System.Drawing.Size(62, 17);
+            this.label233.TabIndex = 0;
+            this.label233.Text = "label226";
+            // 
+            // textBox226
+            // 
+            this.textBox226.Location = new System.Drawing.Point(700, 117);
+            this.textBox226.Name = "textBox226";
+            this.textBox226.Size = new System.Drawing.Size(100, 22);
+            this.textBox226.TabIndex = 1;
+            // 
+            // label232
+            // 
+            this.label232.AutoSize = true;
+            this.label232.Location = new System.Drawing.Point(501, 120);
+            this.label232.Name = "label232";
+            this.label232.Size = new System.Drawing.Size(62, 17);
+            this.label232.TabIndex = 0;
+            this.label232.Text = "label226";
+            // 
+            // textBox225
+            // 
+            this.textBox225.Location = new System.Drawing.Point(700, 87);
+            this.textBox225.Name = "textBox225";
+            this.textBox225.Size = new System.Drawing.Size(100, 22);
+            this.textBox225.TabIndex = 1;
+            // 
+            // label231
+            // 
+            this.label231.AutoSize = true;
+            this.label231.Location = new System.Drawing.Point(501, 92);
+            this.label231.Name = "label231";
+            this.label231.Size = new System.Drawing.Size(62, 17);
+            this.label231.TabIndex = 0;
+            this.label231.Text = "label226";
+            // 
+            // textBox224
+            // 
+            this.textBox224.Location = new System.Drawing.Point(243, 201);
+            this.textBox224.Name = "textBox224";
+            this.textBox224.Size = new System.Drawing.Size(100, 22);
+            this.textBox224.TabIndex = 1;
+            // 
+            // label230
+            // 
+            this.label230.AutoSize = true;
+            this.label230.Location = new System.Drawing.Point(44, 204);
+            this.label230.Name = "label230";
+            this.label230.Size = new System.Drawing.Size(62, 17);
+            this.label230.TabIndex = 0;
+            this.label230.Text = "label226";
+            // 
+            // textBox223
+            // 
+            this.textBox223.Location = new System.Drawing.Point(243, 173);
+            this.textBox223.Name = "textBox223";
+            this.textBox223.Size = new System.Drawing.Size(100, 22);
+            this.textBox223.TabIndex = 1;
+            // 
+            // label229
+            // 
+            this.label229.AutoSize = true;
+            this.label229.Location = new System.Drawing.Point(44, 176);
+            this.label229.Name = "label229";
+            this.label229.Size = new System.Drawing.Size(62, 17);
+            this.label229.TabIndex = 0;
+            this.label229.Text = "label226";
+            // 
+            // textBox222
+            // 
+            this.textBox222.Location = new System.Drawing.Point(243, 145);
+            this.textBox222.Name = "textBox222";
+            this.textBox222.Size = new System.Drawing.Size(100, 22);
+            this.textBox222.TabIndex = 1;
+            // 
+            // label228
+            // 
+            this.label228.AutoSize = true;
+            this.label228.Location = new System.Drawing.Point(44, 148);
+            this.label228.Name = "label228";
+            this.label228.Size = new System.Drawing.Size(62, 17);
+            this.label228.TabIndex = 0;
+            this.label228.Text = "label226";
+            // 
+            // textBox221
+            // 
+            this.textBox221.Location = new System.Drawing.Point(243, 117);
+            this.textBox221.Name = "textBox221";
+            this.textBox221.Size = new System.Drawing.Size(100, 22);
+            this.textBox221.TabIndex = 1;
+            // 
+            // label227
+            // 
+            this.label227.AutoSize = true;
+            this.label227.Location = new System.Drawing.Point(44, 120);
+            this.label227.Name = "label227";
+            this.label227.Size = new System.Drawing.Size(62, 17);
+            this.label227.TabIndex = 0;
+            this.label227.Text = "label226";
+            // 
+            // textBox220
+            // 
+            this.textBox220.Location = new System.Drawing.Point(243, 89);
+            this.textBox220.Name = "textBox220";
+            this.textBox220.Size = new System.Drawing.Size(100, 22);
+            this.textBox220.TabIndex = 1;
+            // 
+            // label226
+            // 
+            this.label226.AutoSize = true;
+            this.label226.Location = new System.Drawing.Point(44, 92);
+            this.label226.Name = "label226";
+            this.label226.Size = new System.Drawing.Size(62, 17);
+            this.label226.TabIndex = 0;
+            this.label226.Text = "label226";
             // 
             // Form1
             // 
@@ -5194,8 +5170,6 @@
         private System.Windows.Forms.TabPage tabPowerTemp;
         private System.Windows.Forms.TabPage tabPowerBMS;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnPowerStopStream;
-        private System.Windows.Forms.Button btnPowerStartStream;
         private System.Windows.Forms.Button btnPowerSinglePacket;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxPowerTemp;

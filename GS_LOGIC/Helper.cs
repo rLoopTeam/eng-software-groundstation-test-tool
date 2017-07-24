@@ -18,5 +18,13 @@ namespace GS_LOGIC
                 if (position == current.Length) return;
             }
         }
+
+        public static float getRandomFloat(Random random, int min, int max)
+        {
+            float baseNumber = random.Next(min, (max-1));
+            float pointNumber = Convert.ToSingle(random.NextDouble());
+
+            return baseNumber + pointNumber;
+        }
     }
 }
