@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GS_LOGIC;
 using static GS_LOGIC.Constants;
+using System.Net.NetworkInformation;
 
 namespace GS_GUI
 {
@@ -45,6 +46,16 @@ namespace GS_GUI
             initComboBox(comboBoxAccelerometers, 10, 2);
             initComboBox(cBListenNode, 0, -1);
             cBListenNode.SelectedValueChanged += clearTextArea;
+            cBListenNode.SelectedValueChanged += stopListening;
+            cBNic.SelectedValueChanged += stopListening;
+            initComboNic(cBListenNode);
+        }
+
+        void initComboNic(ComboBox box)
+        {
+            var arrInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+            String[] dataSource = arrInterfaces.Select(e => e.Name).ToArray();
+            cBNic.DataSource = dataSource;
         }
 
         //This action is tied to the 'Send Packet' button of the 'Power Temp' tab
@@ -208,8 +219,15 @@ namespace GS_GUI
         private void btnStartListening_Click(object sender, EventArgs e)
         {
             PacketTypes type = (PacketTypes)cBListenNode.SelectedItem;
+            String nicName = (String)cBNic.SelectedItem;
             Nodes node = NodesTypes[type];
-            client.StartListening(node);
+            NetworkInterface nic = NetworkInterface.GetAllNetworkInterfaces().Where(i => i.Name == nicName).First();
+            var address = nic.GetIPProperties().UnicastAddresses.Where(a =>a.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
+            if (address != null)
+            {
+                var ipv4Address = address.Address.ToString();
+                client.StartListening(node, ipv4Address);
+            }
         }
 
         public void displayListeningPackets(String result)
@@ -229,6 +247,11 @@ namespace GS_GUI
         private void clearTextArea(object sender, EventArgs e)
         {
             tbListenResult.ResetText();
+        }
+
+        private void stopListening(object sender, EventArgs e)
+        {
+            client.StopListening();
         }
 
         private void btnStopListening_Click(object sender, EventArgs e)

@@ -22,17 +22,20 @@ namespace GS_LOGIC
         public event dataReceivedDelegate dataReceived;
         public void StopListening()
         {
-            if (t.IsAlive) t.Abort();
-            // Shutdown and end connection
-            server.Close();
+            if (t != null && t.IsAlive)
+            {
+                t.Abort();
+                // Shutdown and end connection
+                server.Close();
+            }
         }
 
-        public void StartListening(Nodes node)
+        public void StartListening(Nodes node, String ipAddr)
         {
             try
             {
                 t = new Thread(listen);
-                var address = IPAddress.Parse("169.254.58.247");
+                var address = IPAddress.Parse(ipAddr);
                 endpoint = new IPEndPoint(address, Constants.Remotes[node]);
                 server = new UdpClient(endpoint);
                 t.Start();

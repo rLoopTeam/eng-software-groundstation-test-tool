@@ -526,6 +526,8 @@
             this.label237 = new System.Windows.Forms.Label();
             this.cBListenNode = new System.Windows.Forms.ComboBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.label238 = new System.Windows.Forms.Label();
+            this.cBNic = new System.Windows.Forms.ComboBox();
             this.TabControl_Systems.SuspendLayout();
             this.tabPowerTemp.SuspendLayout();
             this.tabPowerBMS.SuspendLayout();
@@ -5146,6 +5148,8 @@
             // 
             // tabCommands
             // 
+            this.tabCommands.Controls.Add(this.cBNic);
+            this.tabCommands.Controls.Add(this.label238);
             this.tabCommands.Controls.Add(this.btnStopListening);
             this.tabCommands.Controls.Add(this.tbListenResult);
             this.tabCommands.Controls.Add(this.btnStartListening);
@@ -5161,9 +5165,9 @@
             // 
             // btnStopListening
             // 
-            this.btnStopListening.Location = new System.Drawing.Point(598, 9);
+            this.btnStopListening.Location = new System.Drawing.Point(627, 28);
             this.btnStopListening.Name = "btnStopListening";
-            this.btnStopListening.Size = new System.Drawing.Size(99, 24);
+            this.btnStopListening.Size = new System.Drawing.Size(70, 24);
             this.btnStopListening.TabIndex = 4;
             this.btnStopListening.Text = "Stop";
             this.btnStopListening.UseVisualStyleBackColor = true;
@@ -5171,7 +5175,7 @@
             // 
             // tbListenResult
             // 
-            this.tbListenResult.Location = new System.Drawing.Point(24, 51);
+            this.tbListenResult.Location = new System.Drawing.Point(24, 129);
             this.tbListenResult.Name = "tbListenResult";
             this.tbListenResult.ReadOnly = true;
             this.tbListenResult.Size = new System.Drawing.Size(673, 435);
@@ -5180,9 +5184,9 @@
             // 
             // btnStartListening
             // 
-            this.btnStartListening.Location = new System.Drawing.Point(495, 9);
+            this.btnStartListening.Location = new System.Drawing.Point(556, 28);
             this.btnStartListening.Name = "btnStartListening";
-            this.btnStartListening.Size = new System.Drawing.Size(97, 23);
+            this.btnStartListening.Size = new System.Drawing.Size(65, 23);
             this.btnStartListening.TabIndex = 2;
             this.btnStartListening.Text = "Start";
             this.btnStartListening.UseVisualStyleBackColor = true;
@@ -5191,7 +5195,7 @@
             // label237
             // 
             this.label237.AutoSize = true;
-            this.label237.Location = new System.Drawing.Point(21, 12);
+            this.label237.Location = new System.Drawing.Point(21, 34);
             this.label237.Name = "label237";
             this.label237.Size = new System.Drawing.Size(71, 17);
             this.label237.TabIndex = 1;
@@ -5200,9 +5204,9 @@
             // cBListenNode
             // 
             this.cBListenNode.FormattingEnabled = true;
-            this.cBListenNode.Location = new System.Drawing.Point(114, 9);
+            this.cBListenNode.Location = new System.Drawing.Point(149, 28);
             this.cBListenNode.Name = "cBListenNode";
-            this.cBListenNode.Size = new System.Drawing.Size(286, 24);
+            this.cBListenNode.Size = new System.Drawing.Size(381, 24);
             this.cBListenNode.TabIndex = 0;
             // 
             // contextMenuStrip1
@@ -5210,6 +5214,23 @@
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // label238
+            // 
+            this.label238.AutoSize = true;
+            this.label238.Location = new System.Drawing.Point(21, 68);
+            this.label238.Name = "label238";
+            this.label238.Size = new System.Drawing.Size(122, 17);
+            this.label238.TabIndex = 5;
+            this.label238.Text = "Network Interface:";
+            // 
+            // cBNic
+            // 
+            this.cBNic.FormattingEnabled = true;
+            this.cBNic.Location = new System.Drawing.Point(149, 65);
+            this.cBNic.Name = "cBNic";
+            this.cBNic.Size = new System.Drawing.Size(381, 24);
+            this.cBNic.TabIndex = 6;
             // 
             // Form1
             // 
@@ -5742,6 +5763,8 @@
         private System.Windows.Forms.RichTextBox tbListenResult;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button btnStopListening;
+        private System.Windows.Forms.ComboBox cBNic;
+        private System.Windows.Forms.Label label238;
     }
 }
 
