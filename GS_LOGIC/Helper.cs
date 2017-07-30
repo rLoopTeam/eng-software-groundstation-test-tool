@@ -26,5 +26,19 @@ namespace GS_LOGIC
 
             return baseNumber + pointNumber;
         }
+
+        public static T[] Slice<T>(this T[] current, int from, int count)
+        {
+            T[] newArray = new T[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                newArray[i] = current[from];
+                from++;
+
+                if (from == current.Length) return newArray;
+            }
+            return newArray;
+        }
     }
 }

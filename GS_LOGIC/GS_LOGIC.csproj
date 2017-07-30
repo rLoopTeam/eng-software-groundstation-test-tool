@@ -45,6 +45,7 @@
     <Compile Include="PacketDefinition.cs" />
     <Compile Include="PacketMaker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UDPClient.cs" />
     <Compile Include="UDPServer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

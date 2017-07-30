@@ -15,13 +15,17 @@ namespace GS_GUI
     public partial class Form1 : Form
     {
         UDPServer server;
-
+        UDPClient client;
+        delegate void SetTextCallback(string text);
         public Form1()
         {
             InitializeComponent();
             server = new UDPServer();
+            client = new UDPClient();
+            client.dataReceived += displayListeningPackets;
             initTabs();
             initComboBoxes();
+            this.FormClosing += Form1_FormClosing;
         }
 
         private void initTabs()
@@ -39,13 +43,15 @@ namespace GS_GUI
             initComboBox(comboBoxPowerTemp, 0, 2);
             initComboBox(comboBoxPowerBMS, 6, 2);
             initComboBox(comboBoxAccelerometers, 10, 2);
+            initComboBox(cBListenNode, 0, -1);
+            cBListenNode.SelectedValueChanged += clearTextArea;
         }
 
         //This action is tied to the 'Send Packet' button of the 'Power Temp' tab
         private void btnPowerSinglePacket_Click(object sender, EventArgs e)
         {
             PacketTypes packetType = (PacketTypes)comboBoxPowerTemp.SelectedItem;
-            String[] payload = { tBSpare.Text, tbCount.Text, tBTemp.Text};
+            String[] payload = { tBSpare.Text, tbCount.Text, tBTemp.Text };
             byte[] udp = PacketMaker.makeUDP(packetType, payload);
             server.sendPacket(udp, packetType);
         }
@@ -110,9 +116,19 @@ namespace GS_GUI
         void initComboBox(ComboBox box, int startPosition, int length)
         {
             //Initialise a new array that will be populated by the values from which the combobox will be populated
-            Enum[] dataSource = new Enum[length];
+            Enum[] dataSource;
             //populate the recently initialised array with the desired values
-            Array.Copy(Enum.GetValues(typeof(PacketTypes)), startPosition, dataSource, 0, length);
+            if (length == -1)
+            {
+                var arr = Enum.GetValues(typeof(PacketTypes));
+                dataSource = new Enum[arr.Length];
+                arr.CopyTo(dataSource, 0);
+            }
+            else
+            {
+                dataSource = new Enum[length];
+                Array.Copy(Enum.GetValues(typeof(PacketTypes)), startPosition, dataSource, 0, length);
+            }
             //bind the array to the combobox
             box.DataSource = dataSource;
         }
@@ -187,6 +203,44 @@ namespace GS_GUI
             }
 
             return arrValues;
+        }
+
+        private void btnStartListening_Click(object sender, EventArgs e)
+        {
+            PacketTypes type = (PacketTypes)cBListenNode.SelectedItem;
+            Nodes node = NodesTypes[type];
+            client.StartListening(node);
+        }
+
+        public void displayListeningPackets(String result)
+        {
+            if (this.tbListenResult.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(displayListeningPackets);
+                this.Invoke(d, new object[] { result });
+            }
+            else
+            {
+                tbListenResult.AppendText(result);
+                tbListenResult.AppendText(Environment.NewLine);
+            }
+        }
+
+        private void clearTextArea(object sender, EventArgs e)
+        {
+            tbListenResult.ResetText();
+        }
+
+        private void btnStopListening_Click(object sender, EventArgs e)
+        {
+            client.StopListening();
+        }
+
+        private void Form1_FormClosing(Object sender, FormClosingEventArgs e)
+        {
+            {
+                client.StopListening();
+            }
         }
     }
 }

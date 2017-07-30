@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.TabControl_Systems = new System.Windows.Forms.TabControl();
             this.tabPowerTemp = new System.Windows.Forms.TabPage();
             this.tBTemp = new System.Windows.Forms.MaskedTextBox();
@@ -518,6 +519,13 @@
             this.label227 = new System.Windows.Forms.Label();
             this.textBox220 = new System.Windows.Forms.TextBox();
             this.label226 = new System.Windows.Forms.Label();
+            this.tabCommands = new System.Windows.Forms.TabPage();
+            this.btnStopListening = new System.Windows.Forms.Button();
+            this.tbListenResult = new System.Windows.Forms.RichTextBox();
+            this.btnStartListening = new System.Windows.Forms.Button();
+            this.label237 = new System.Windows.Forms.Label();
+            this.cBListenNode = new System.Windows.Forms.ComboBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TabControl_Systems.SuspendLayout();
             this.tabPowerTemp.SuspendLayout();
             this.tabPowerBMS.SuspendLayout();
@@ -527,6 +535,7 @@
             this.tabThrottles.SuspendLayout();
             this.tabBrakes.SuspendLayout();
             this.tabSteppers.SuspendLayout();
+            this.tabCommands.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControl_Systems
@@ -539,6 +548,7 @@
             this.TabControl_Systems.Controls.Add(this.tabThrottles);
             this.TabControl_Systems.Controls.Add(this.tabBrakes);
             this.TabControl_Systems.Controls.Add(this.tabSteppers);
+            this.TabControl_Systems.Controls.Add(this.tabCommands);
             this.TabControl_Systems.Location = new System.Drawing.Point(13, 23);
             this.TabControl_Systems.Margin = new System.Windows.Forms.Padding(4);
             this.TabControl_Systems.Name = "TabControl_Systems";
@@ -5134,6 +5144,73 @@
             this.label226.TabIndex = 0;
             this.label226.Text = "label226";
             // 
+            // tabCommands
+            // 
+            this.tabCommands.Controls.Add(this.btnStopListening);
+            this.tabCommands.Controls.Add(this.tbListenResult);
+            this.tabCommands.Controls.Add(this.btnStartListening);
+            this.tabCommands.Controls.Add(this.label237);
+            this.tabCommands.Controls.Add(this.cBListenNode);
+            this.tabCommands.Location = new System.Drawing.Point(4, 25);
+            this.tabCommands.Name = "tabCommands";
+            this.tabCommands.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCommands.Size = new System.Drawing.Size(1403, 738);
+            this.tabCommands.TabIndex = 8;
+            this.tabCommands.Text = "Commands";
+            this.tabCommands.UseVisualStyleBackColor = true;
+            // 
+            // btnStopListening
+            // 
+            this.btnStopListening.Location = new System.Drawing.Point(598, 9);
+            this.btnStopListening.Name = "btnStopListening";
+            this.btnStopListening.Size = new System.Drawing.Size(99, 24);
+            this.btnStopListening.TabIndex = 4;
+            this.btnStopListening.Text = "Stop";
+            this.btnStopListening.UseVisualStyleBackColor = true;
+            this.btnStopListening.Click += new System.EventHandler(this.btnStopListening_Click);
+            // 
+            // tbListenResult
+            // 
+            this.tbListenResult.Location = new System.Drawing.Point(24, 51);
+            this.tbListenResult.Name = "tbListenResult";
+            this.tbListenResult.ReadOnly = true;
+            this.tbListenResult.Size = new System.Drawing.Size(673, 435);
+            this.tbListenResult.TabIndex = 3;
+            this.tbListenResult.Text = "";
+            // 
+            // btnStartListening
+            // 
+            this.btnStartListening.Location = new System.Drawing.Point(495, 9);
+            this.btnStartListening.Name = "btnStartListening";
+            this.btnStartListening.Size = new System.Drawing.Size(97, 23);
+            this.btnStartListening.TabIndex = 2;
+            this.btnStartListening.Text = "Start";
+            this.btnStartListening.UseVisualStyleBackColor = true;
+            this.btnStartListening.Click += new System.EventHandler(this.btnStartListening_Click);
+            // 
+            // label237
+            // 
+            this.label237.AutoSize = true;
+            this.label237.Location = new System.Drawing.Point(21, 12);
+            this.label237.Name = "label237";
+            this.label237.Size = new System.Drawing.Size(71, 17);
+            this.label237.TabIndex = 1;
+            this.label237.Text = "Listen for:";
+            // 
+            // cBListenNode
+            // 
+            this.cBListenNode.FormattingEnabled = true;
+            this.cBListenNode.Location = new System.Drawing.Point(114, 9);
+            this.cBListenNode.Name = "cBListenNode";
+            this.cBListenNode.Size = new System.Drawing.Size(286, 24);
+            this.cBListenNode.TabIndex = 0;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -5160,6 +5237,8 @@
             this.tabBrakes.PerformLayout();
             this.tabSteppers.ResumeLayout(false);
             this.tabSteppers.PerformLayout();
+            this.tabCommands.ResumeLayout(false);
+            this.tabCommands.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -5656,6 +5735,13 @@
         private System.Windows.Forms.Label label227;
         private System.Windows.Forms.TextBox textBox220;
         private System.Windows.Forms.Label label226;
+        private System.Windows.Forms.TabPage tabCommands;
+        private System.Windows.Forms.Button btnStartListening;
+        private System.Windows.Forms.Label label237;
+        private System.Windows.Forms.ComboBox cBListenNode;
+        private System.Windows.Forms.RichTextBox tbListenResult;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Button btnStopListening;
     }
 }
 
