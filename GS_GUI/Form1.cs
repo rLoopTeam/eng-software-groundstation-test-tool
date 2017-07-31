@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using GS_LOGIC;
 using static GS_LOGIC.Constants;
@@ -16,14 +12,13 @@ namespace GS_GUI
     public partial class Form1 : Form
     {
         UDPServer server;
-        UDPClient client;
+        List<UDPClient> clients;
         delegate void SetTextCallback(string text);
         public Form1()
         {
             InitializeComponent();
             server = new UDPServer();
-            client = new UDPClient();
-            client.dataReceived += displayListeningPackets;
+            clients = new List<UDPClient>();
             initTabs();
             initComboBoxes();
             this.FormClosing += Form1_FormClosing;
@@ -216,20 +211,6 @@ namespace GS_GUI
             return arrValues;
         }
 
-        private void btnStartListening_Click(object sender, EventArgs e)
-        {
-            PacketTypes type = (PacketTypes)cBListenNode.SelectedItem;
-            String nicName = (String)cBNic.SelectedItem;
-            Nodes node = NodesTypes[type];
-            NetworkInterface nic = NetworkInterface.GetAllNetworkInterfaces().Where(i => i.Name == nicName).First();
-            var address = nic.GetIPProperties().UnicastAddresses.Where(a =>a.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
-            if (address != null)
-            {
-                var ipv4Address = address.Address.ToString();
-                client.StartListening(node, ipv4Address);
-            }
-        }
-
         public void displayListeningPackets(String result)
         {
             if (this.tbListenResult.InvokeRequired)
@@ -239,6 +220,8 @@ namespace GS_GUI
             }
             else
             {
+                var now = DateTime.Now.ToString("HH:mm:ss.fff") + "\n";
+                tbListenResult.AppendText($"Receieved at: {now}");
                 tbListenResult.AppendText(result);
                 tbListenResult.AppendText(Environment.NewLine);
             }
@@ -251,19 +234,84 @@ namespace GS_GUI
 
         private void stopListening(object sender, EventArgs e)
         {
-            client.StopListening();
-        }
-
-        private void btnStopListening_Click(object sender, EventArgs e)
-        {
-            client.StopListening();
+            foreach(var client in clients)
+                client.StopListening();
         }
 
         private void Form1_FormClosing(Object sender, FormClosingEventArgs e)
         {
+            foreach (var client in clients)
+                client.StopListening();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label238_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddListen_Click(object sender, EventArgs e)
+        {
+            if (!lstListen.Items.Contains((PacketTypes)cBListenNode.SelectedItem))
+                lstListen.Items.Add((PacketTypes)cBListenNode.SelectedItem);
+        }
+
+        private void btnStartListening_Click_1(object sender, EventArgs e)
+        {
+            if (lstListen.Items.Count == 0) { MessageBox.Show("Nothing to monitor", "Issue"); return; }
+
+            foreach(var t in lstListen.Items)
+            {
+                var client = new UDPClient();
+                client.dataReceived += displayListeningPackets;
+                clients.Add(client);
+                PacketTypes type = (PacketTypes)t;
+                String nicName = (String)cBNic.SelectedItem;
+                Nodes node = NodesTypes[type];
+                NetworkInterface nic = NetworkInterface.GetAllNetworkInterfaces().Where(i => i.Name == nicName).First();
+                var address = nic.GetIPProperties().UnicastAddresses.Where(a => a.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
+                if (address != null)
+                {
+                    var ipv4Address = address.Address.ToString();
+                    client.StartListening(node, ipv4Address);
+                }
+                tbListenResult.AppendText(string.Format("Started listening for: {0}", t));
+                tbListenResult.AppendText(Environment.NewLine);
+            }
+
+            btnStartListening.Enabled = false;
+            btnStopListening.Enabled = true;
+        }
+
+        private void btnClearListen_Click(object sender, EventArgs e)
+        {
+            lstListen.Items.Clear();
+        }
+
+        private void btnStopListening_Click_1(object sender, EventArgs e)
+        {
+            btnStartListening.Enabled = true;
+
+            foreach (var client in clients)
             {
                 client.StopListening();
             }
+
+            clients.Clear();
+
+            tbListenResult.AppendText("Stopped listening");
+            tbListenResult.AppendText(Environment.NewLine);
+        }
+
+        private void tbListenResult_TextChanged(object sender, EventArgs e)
+        {
+            tbListenResult.SelectionStart = tbListenResult.Text.Length;
+            // scroll it automatically
+            tbListenResult.ScrollToCaret();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace GS_LOGIC
     public class UDPClient
     {
         private Thread t;
-        private static UdpClient server { get; set; }
+        private UdpClient server { get; set; }
         IPEndPoint endpoint;
         static IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
 
@@ -49,11 +49,12 @@ namespace GS_LOGIC
         {
             try
             {
+                Console.WriteLine("Waiting for a connection... ");
+
                 // Enter the listening loop.
                 while (true)
                 {
-                    Console.WriteLine("Waiting for a connection... ");
-
+                    
                     // Blocks until a message returns on this socket from a remote host.
                     Byte[] receiveBytes = server.Receive(ref RemoteIpEndPoint);
 
