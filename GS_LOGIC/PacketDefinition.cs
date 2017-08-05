@@ -25,6 +25,8 @@ namespace GS_LOGIC
         public Type Type { get; set; }
         public String Units  { get; set; }
         public int Size { get; set; }
+        public bool BeginLoop { get; set; }
+        public bool EndLoop { get; set; }
     }
 
     public class Node

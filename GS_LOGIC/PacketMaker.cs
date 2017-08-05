@@ -65,9 +65,31 @@ namespace GS_LOGIC
 
             int payloadSize = 0;
             //establish the final payload byte size
-            foreach (var elem in parameters)
+            int numberOfParametersInLoop = 0;
+            bool countParam = false;
+
+            for(int i = 0; i < parameters.Length; i++)
             {
-                payloadSize += elem.Size;
+                if (parameters[i].BeginLoop) countParam = true;
+                if (countParam) numberOfParametersInLoop++;
+                if (parameters[i].EndLoop) countParam = false;
+            }
+
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                if (parameters[i].BeginLoop)
+                {
+                    int numberLoops = (values.Length - i) / numberOfParametersInLoop;
+                    int sizePerLoop = 0;
+                    for (int j = 0; j < numberOfParametersInLoop; j++)
+                    {
+                        sizePerLoop += parameters[i + j].Size;
+                    }
+                    payloadSize += sizePerLoop * numberLoops;
+                }else
+                {
+                    payloadSize += parameters[i].Size;
+                }  
             }
 
             byte[] payload = new byte[payloadSize];
@@ -76,12 +98,35 @@ namespace GS_LOGIC
             //loop through all the values and convert them all to bytes
             for (int i = 0; i < parameters.Length; i++)
             {
-                String value = values[i];
-                //convert the value into byte-array
-                byte[] parameterByteArray = GetByteArray(value, parameters[i].Type);
-                //insert converted values into the payload array
-                payload.Insert(nextPayloadPosition, parameterByteArray);
-                nextPayloadPosition += parameters[i].Size;
+                if (parameters[i].BeginLoop)
+                {
+                    int j = 0;
+                    for (; j < values.Length - i; j++)
+                    {
+                        int k = -1;
+                        do
+                        {
+                            k++;
+                            String value = values[i+k+j];
+                            //convert the value into byte-array
+                            byte[] parameterByteArray = GetByteArray(value, parameters[i].Type);
+                            //insert converted values into the payload array
+                            payload.Insert(nextPayloadPosition, parameterByteArray);
+                            nextPayloadPosition += parameters[i+k].Size;
+
+                        } while (!parameters[k+i].EndLoop);
+                        j += k;
+                    }
+                    i += j;
+                }else
+                {
+                    String value = values[i];
+                    //convert the value into byte-array
+                    byte[] parameterByteArray = GetByteArray(value, parameters[i].Type);
+                    //insert converted values into the payload array
+                    payload.Insert(nextPayloadPosition, parameterByteArray);
+                    nextPayloadPosition += parameters[i].Size;
+                }
             }
 
             return payload;
@@ -100,7 +145,7 @@ namespace GS_LOGIC
                 j = ((crc >> 8) ^ c) & 0xFF;
                 crc = CRCHashtable[j] ^ (crc << 8);
             }
-
+            crc += 1;
             byte[] arr = BitConverter.GetBytes(crc);
             return arr;
         }

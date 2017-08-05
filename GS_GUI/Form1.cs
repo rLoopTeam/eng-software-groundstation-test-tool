@@ -57,9 +57,13 @@ namespace GS_GUI
         private void btnPowerSinglePacket_Click(object sender, EventArgs e)
         {
             PacketTypes packetType = (PacketTypes)comboBoxPowerTemp.SelectedItem;
-            String[] payload = { tBSpare.Text, tbCount.Text, tBTemp.Text };
-            byte[] udp = PacketMaker.makeUDP(packetType, payload);
-            server.sendPacket(udp, packetType);
+            PacketTypes packetType2 = packetType == PacketTypes.POWER_A_CURRENT_TEMP ? PacketTypes.POWER_A_CURRENT_TEMP_LOCATIONS : PacketTypes.POWER_B_CURRENT_TEMP_LOCATIONS;
+            //String[] payload = { tBSpare.Text, tbCount.Text, tBTemp.Text };
+            //byte[] udp = PacketMaker.makeUDP(packetType, payload);
+            //server.sendPacket(udp, packetType);
+
+            sendSinglePacket(packetType, tabPowerTemp, 231,4);
+            sendSinglePacket(packetType2, tabPowerTemp, 237, 12,2);
         }
         //This action is tied to the 'Send Packet' button of the 'Power BMS' tab
         private void buttonPowerBMSSingle_Click(object sender, EventArgs e)
@@ -185,29 +189,32 @@ namespace GS_GUI
             }
         }
         //This function handles the getting of parameter values and sending them
-        void sendSinglePacket(PacketTypes packetType, TabPage page, int textBoxOffset)
+        void sendSinglePacket(PacketTypes packetType, TabPage page, int textBoxOffset, int amount = -1, int pre = -1)
         {
+            int length;
+            var parameters = Constants.AllPackets[packetType].Parameters;
+            int parameterLength = parameters.Length;
+            var tabControls = page.Controls;
+
+            length = amount == -1 ? parameterLength : parameterLength + amount - (1+pre);
+            length = pre == -1 ? length : length - (parameterLength -pre);
             //Retrieve the values from the corresponding tab page
-            String[] arrValues = GetValues(page, packetType, textBoxOffset);
+            String[] arrValues = GetValues(tabControls, textBoxOffset, length);
             //make the appropriate formatted udp packet corresponding to the packet type
             byte[] udp = PacketMaker.makeUDP(packetType, arrValues);
             //sends the packet to the relevant port using the packettype
             server.sendPacket(udp, packetType);
         }
         //this one is used to retrieve the values from the textboxes from a certain tab, using the tabpage, packettype and the offset from which the textboxnumbering begins
-        private String[] GetValues(TabPage page, PacketTypes type, int TextBoxOffset)
+        private String[] GetValues(Control.ControlCollection tabControls, int TextBoxOffset, int length)
         {
-            var parameters = Constants.AllPackets[type].Parameters;
-            var tabControls = page.Controls;
-
-            String[] arrValues = new String[parameters.Length];
-            for (int i = 0; i < parameters.Length; i++)
+            String[] arrValues = new String[length];
+            for (int i = 0; i < length; i++)
             {
                 String textBoxName = String.Format("textBox{0}", i + TextBoxOffset);
                 String value = tabControls[textBoxName].Text;
                 arrValues[i] = value;
             }
-
             return arrValues;
         }
 

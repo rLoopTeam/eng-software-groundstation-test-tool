@@ -99,6 +99,97 @@ namespace GS_LOGIC
 
         public static Dictionary<PacketTypes, PacketDefinition> AllPackets = new Dictionary<PacketTypes, PacketDefinition>()
         {
+
+                {PacketTypes.POWER_A_CURRENT_TEMP_LOCATIONS, new PacketDefinition {
+      Name = "Power A Current Temps Locations",
+      ParameterPrefix = "Power A Temps Loc ",
+      PacketType = 0x3203,
+      Node = Nodes.POWER_NODE_A,
+      DAQ = false,
+      Parameters = new Param[] {
+                new Param { Name = "Number of Temps", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param { Name = "Spare", Type = typeof(UInt16), Units = "RAW", Size = 2},
+
+                new Param { Name = "User Index", Type = typeof(UInt16), Units = "Hex", Size = 2, BeginLoop = true},
+                new Param { Name = "Resolution", Type = typeof(byte), Units = "bits", Size = 1},
+                new Param { Name = "Bus Index", Type = typeof(byte), Units = "", Size = 1, EndLoop = true}
+      }
+    }
+            },
+
+    {PacketTypes.POWER_B_CURRENT_TEMP_LOCATIONS,new PacketDefinition {
+      Name = "Power B Current Temps Locations",
+      ParameterPrefix = "Power B Temps Loc ",
+      PacketType = 0x3203,
+      Node = Nodes.POWER_NODE_B,
+      DAQ = false,
+      Parameters = new Param[] {
+                new Param { Name = "Number of Temps", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param { Name = "Spare", Type = typeof(UInt16), Units = "RAW", Size = 2},
+
+                new Param { Name = "User Index", Type = typeof(UInt16), Units = "Hex", Size = 2, BeginLoop = true},
+                new Param { Name = "Resolution", Type = typeof(byte), Units = "bits", Size = 1},
+                new Param { Name = "Bus Index", Type = typeof(byte), Units = "", Size = 1, EndLoop = true}
+      }
+    }
+        },
+
+    {PacketTypes.POWER_A_ROM_ID, new PacketDefinition{
+      Name = "Power A ROM ID",
+      ParameterPrefix = "Power A ROM ",
+      PacketType = 0x3205,
+      Node = Nodes.POWER_NODE_A,
+      DAQ = false,
+      Parameters = new Param[] {
+                new Param { Name = "Index", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param { Name = "Hi", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param { Name = "Lo", Type = typeof(UInt32), Units = "", Size = 4}
+      }
+    }
+            },
+    {PacketTypes.POWER_B_ROM_ID, new PacketDefinition {
+      Name = "Power B ROM ID",
+      ParameterPrefix = "Power B ROM ",
+      PacketType = 0x3205,
+      Node = Nodes.POWER_NODE_B,
+      DAQ = false,
+      Parameters = new Param[] {
+                new Param { Name = "Index", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param { Name = "Hi", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param { Name = "Lo", Type = typeof(UInt32), Units = "", Size = 4}
+      }
+    }
+            },
+            {PacketTypes.POWER_A_CURRENT_TEMP, new PacketDefinition
+                {
+       Name =  "Power A Current Temps",
+      ParameterPrefix = "Power A Temps ",
+      PacketType = 0x3201,
+      Node = Nodes.POWER_NODE_A,
+      DAQ = false,
+      Parameters = new Param[]{
+                new Param {Name = "Count", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name =  "Spare", Type = typeof(UInt16), Units = "RAW", Size = 2},
+
+                new Param {Name = "Temperature", Type = typeof(float), Units = "C", Size = 4, BeginLoop = true, EndLoop = true}
+            }
+    }
+            },
+                        {PacketTypes.POWER_B_CURRENT_TEMP, new PacketDefinition
+                {
+       Name =  "Power B Current Temps",
+      ParameterPrefix = "Power B Temps ",
+      PacketType = 0x3201,
+      Node = Nodes.POWER_NODE_B,
+      DAQ = false,
+      Parameters = new Param[]{
+                new Param {Name = "Count", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name =  "Spare", Type = typeof(UInt16), Units = "RAW", Size = 2},
+
+                new Param {Name = "Temperature", Type = typeof(float), Units = "C", Size = 4, BeginLoop = true, EndLoop = true}
+            }
+    }
+            },
             {
                 PacketTypes.POWER_A_BMS,
                 new PacketDefinition{
