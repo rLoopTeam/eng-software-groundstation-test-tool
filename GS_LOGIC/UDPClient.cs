@@ -80,11 +80,13 @@ namespace GS_LOGIC
                     //deconstruct packet;
                     byte[] sequence = receiveBytes.Slice(0, 4);
                     byte[] type = receiveBytes.Slice(4, 2);
-                    byte[] payload = receiveBytes.Slice(6, receiveBytes.Length - 2);
+                    byte[] payloadLength = receiveBytes.Slice(6, 2);
+                    byte[] payload = receiveBytes.Slice(8, receiveBytes.Length - 2);
                     byte[] crc = receiveBytes.Slice(receiveBytes.Length - 2, 2);
 
                     byte[] reversedSequence = (sequence.Reverse()).ToArray();
                     byte[] reversedType = (type.Reverse()).ToArray();
+                    byte[] reversedPayloadLength = (payloadLength.Reverse()).ToArray();
                     byte[] reversedPayload = (payload.Reverse()).ToArray();
                     byte[] reversedCrc = (crc.Reverse()).ToArray();
 
@@ -107,7 +109,8 @@ namespace GS_LOGIC
 
                     dataReceived?.Invoke(toPrint);
 
-                    var toLog = "," + BitConverter.ToString(reversedSequence) + "," + BitConverter.ToString(reversedType) + "," + BitConverter.ToString(reversedPayload) + "," + BitConverter.ToString(reversedCrc);
+                    var dateTimeOffset = new DateTimeOffset(DateTime.UtcNow);
+                    var toLog = $"{dateTimeOffset.ToUnixTimeMilliseconds()}," + BitConverter.ToString(reversedSequence) + "," + BitConverter.ToString(reversedType) + "," + BitConverter.ToString(reversedPayloadLength) + "," + BitConverter.ToString(reversedPayload) + "," + BitConverter.ToString(reversedCrc);
 
                     rawDataReceived?.Invoke(toLog);
 
