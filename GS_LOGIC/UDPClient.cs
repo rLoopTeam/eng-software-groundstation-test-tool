@@ -20,6 +20,8 @@ namespace GS_LOGIC
 
         public delegate void dataReceivedDelegate(String toPrint);
         public event dataReceivedDelegate dataReceived;
+        public delegate void rawDataReceivedDelegate(String toLog);
+        public event rawDataReceivedDelegate rawDataReceived;
         public void StopListening()
         {
             if (t != null && t.IsAlive)
@@ -37,6 +39,21 @@ namespace GS_LOGIC
                 t = new Thread(listen);
                 var address = IPAddress.Parse(ipAddr);
                 endpoint = new IPEndPoint(address, Constants.Remotes[node]);
+                server = new UdpClient(endpoint);
+                t.Start();
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine("SocketException: {0}", e);
+            }
+        }
+        public void StartListening(int port, String ipAddr)
+        {
+            try
+            {
+                t = new Thread(listen);
+                var address = IPAddress.Parse(ipAddr);
+                endpoint = new IPEndPoint(address, port);
                 server = new UdpClient(endpoint);
                 t.Start();
             }
@@ -88,8 +105,11 @@ namespace GS_LOGIC
                     toPrint += BitConverter.ToString(reversedCrc);
                     toPrint += Environment.NewLine;
 
-
                     dataReceived?.Invoke(toPrint);
+
+                    var toLog = "," + BitConverter.ToString(reversedSequence) + "," + BitConverter.ToString(reversedType) + "," + BitConverter.ToString(reversedPayload) + "," + BitConverter.ToString(reversedCrc);
+
+                    rawDataReceived?.Invoke(toLog);
 
                     //Console.Write("Sequence: ");
                     //Console.Write(BitConverter.ToString(reversedSequence));

@@ -531,7 +531,15 @@
             this.btnStartListening = new System.Windows.Forms.Button();
             this.label237 = new System.Windows.Forms.Label();
             this.cBListenNode = new System.Windows.Forms.ComboBox();
+            this.tabDataRecorder = new System.Windows.Forms.TabPage();
+            this.outputListBox = new System.Windows.Forms.ListBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.portEntryTextBox = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.monitorPortButton = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmbMonitoringBox = new System.Windows.Forms.ComboBox();
+            this.label239 = new System.Windows.Forms.Label();
             this.TabControl_Systems.SuspendLayout();
             this.tabPowerTemp.SuspendLayout();
             this.tabPowerBMS.SuspendLayout();
@@ -543,6 +551,8 @@
             this.tabSteppers.SuspendLayout();
             this.tabCommands.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabDataRecorder.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControl_Systems
@@ -556,12 +566,13 @@
             this.TabControl_Systems.Controls.Add(this.tabBrakes);
             this.TabControl_Systems.Controls.Add(this.tabSteppers);
             this.TabControl_Systems.Controls.Add(this.tabCommands);
+            this.TabControl_Systems.Controls.Add(this.tabDataRecorder);
             this.TabControl_Systems.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControl_Systems.Location = new System.Drawing.Point(0, 0);
             this.TabControl_Systems.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TabControl_Systems.Name = "TabControl_Systems";
             this.TabControl_Systems.SelectedIndex = 0;
-            this.TabControl_Systems.Size = new System.Drawing.Size(2164, 1275);
+            this.TabControl_Systems.Size = new System.Drawing.Size(1291, 1275);
             this.TabControl_Systems.TabIndex = 0;
             // 
             // tabPowerTemp
@@ -5330,7 +5341,7 @@
             this.tabCommands.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabCommands.Name = "tabCommands";
             this.tabCommands.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabCommands.Size = new System.Drawing.Size(2156, 1242);
+            this.tabCommands.Size = new System.Drawing.Size(1283, 1242);
             this.tabCommands.TabIndex = 8;
             this.tabCommands.Text = "Commands";
             this.tabCommands.UseVisualStyleBackColor = true;
@@ -5342,7 +5353,7 @@
             this.tbListenResult.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbListenResult.Name = "tbListenResult";
             this.tbListenResult.ReadOnly = true;
-            this.tbListenResult.Size = new System.Drawing.Size(1539, 1234);
+            this.tbListenResult.Size = new System.Drawing.Size(666, 1234);
             this.tbListenResult.TabIndex = 3;
             this.tbListenResult.Text = "";
             this.tbListenResult.TextChanged += new System.EventHandler(this.tbListenResult_TextChanged);
@@ -5359,7 +5370,7 @@
             this.panel1.Controls.Add(this.label237);
             this.panel1.Controls.Add(this.cBListenNode);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(1542, 4);
+            this.panel1.Location = new System.Drawing.Point(669, 4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(611, 1234);
             this.panel1.TabIndex = 7;
@@ -5456,17 +5467,96 @@
             this.cBListenNode.Size = new System.Drawing.Size(428, 28);
             this.cBListenNode.TabIndex = 7;
             // 
+            // tabDataRecorder
+            // 
+            this.tabDataRecorder.Controls.Add(this.outputListBox);
+            this.tabDataRecorder.Controls.Add(this.panel2);
+            this.tabDataRecorder.Location = new System.Drawing.Point(4, 29);
+            this.tabDataRecorder.Name = "tabDataRecorder";
+            this.tabDataRecorder.Size = new System.Drawing.Size(1283, 1242);
+            this.tabDataRecorder.TabIndex = 9;
+            this.tabDataRecorder.Text = "Data Recorder";
+            this.tabDataRecorder.UseVisualStyleBackColor = true;
+            // 
+            // outputListBox
+            // 
+            this.outputListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.outputListBox.FormattingEnabled = true;
+            this.outputListBox.ItemHeight = 20;
+            this.outputListBox.Location = new System.Drawing.Point(0, 59);
+            this.outputListBox.Name = "outputListBox";
+            this.outputListBox.Size = new System.Drawing.Size(1283, 1183);
+            this.outputListBox.TabIndex = 1;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.cmbMonitoringBox);
+            this.panel2.Controls.Add(this.label239);
+            this.panel2.Controls.Add(this.portEntryTextBox);
+            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.monitorPortButton);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1283, 59);
+            this.panel2.TabIndex = 0;
+            // 
+            // portEntryTextBox
+            // 
+            this.portEntryTextBox.Location = new System.Drawing.Point(8, 20);
+            this.portEntryTextBox.Name = "portEntryTextBox";
+            this.portEntryTextBox.Size = new System.Drawing.Size(100, 26);
+            this.portEntryTextBox.TabIndex = 2;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(277, 12);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(191, 41);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Stop Monitoring Port";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // monitorPortButton
+            // 
+            this.monitorPortButton.Location = new System.Drawing.Point(114, 12);
+            this.monitorPortButton.Name = "monitorPortButton";
+            this.monitorPortButton.Size = new System.Drawing.Size(157, 41);
+            this.monitorPortButton.TabIndex = 0;
+            this.monitorPortButton.Text = "Monitor Port";
+            this.monitorPortButton.UseVisualStyleBackColor = true;
+            this.monitorPortButton.Click += new System.EventHandler(this.monitorPortButton_Click);
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // cmbMonitoringBox
+            // 
+            this.cmbMonitoringBox.FormattingEnabled = true;
+            this.cmbMonitoringBox.Location = new System.Drawing.Point(843, 17);
+            this.cmbMonitoringBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbMonitoringBox.Name = "cmbMonitoringBox";
+            this.cmbMonitoringBox.Size = new System.Drawing.Size(428, 28);
+            this.cmbMonitoringBox.TabIndex = 14;
+            // 
+            // label239
+            // 
+            this.label239.AutoSize = true;
+            this.label239.Location = new System.Drawing.Point(698, 20);
+            this.label239.Name = "label239";
+            this.label239.Size = new System.Drawing.Size(139, 20);
+            this.label239.TabIndex = 13;
+            this.label239.Text = "Network Interface:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2164, 1275);
+            this.ClientSize = new System.Drawing.Size(1291, 1275);
             this.Controls.Add(this.TabControl_Systems);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
@@ -5491,6 +5581,9 @@
             this.tabCommands.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tabDataRecorder.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -6000,6 +6093,14 @@
         private System.Windows.Forms.Button btnAddListen;
         private System.Windows.Forms.ListBox lstListen;
         private System.Windows.Forms.Button btnClearListen;
+        private System.Windows.Forms.TabPage tabDataRecorder;
+        private System.Windows.Forms.ListBox outputListBox;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox portEntryTextBox;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button monitorPortButton;
+        private System.Windows.Forms.ComboBox cmbMonitoringBox;
+        private System.Windows.Forms.Label label239;
     }
 }
 

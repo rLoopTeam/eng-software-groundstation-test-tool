@@ -16,6 +16,9 @@ namespace GS_GUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            log4net.Config.XmlConfigurator.Configure();
+
             Application.Run(new Form1());
         }
     }

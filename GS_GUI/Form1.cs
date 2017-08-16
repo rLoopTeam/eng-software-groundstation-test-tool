@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using GS_LOGIC;
 using static GS_LOGIC.Constants;
 using System.Net.NetworkInformation;
+using log4net.Config;
+using log4net;
 
 namespace GS_GUI
 {
@@ -13,15 +15,21 @@ namespace GS_GUI
     {
         UDPServer server;
         List<UDPClient> clients;
+        Dictionary<int, UDPClient> dataRecordings;
         delegate void SetTextCallback(string text);
+        ILog logger = LogManager.GetLogger("CsvFileAppender");
+
         public Form1()
         {
             InitializeComponent();
             server = new UDPServer();
             clients = new List<UDPClient>();
+            dataRecordings = new Dictionary<int, UDPClient>();
             initTabs();
             initComboBoxes();
             this.FormClosing += Form1_FormClosing;
+            XmlConfigurator.Configure();
+            
         }
 
         private void initTabs()
@@ -44,13 +52,14 @@ namespace GS_GUI
             cBListenNode.SelectedValueChanged += stopListening;
             cBNic.SelectedValueChanged += stopListening;
             initComboNic(cBListenNode);
+            initComboNic(cmbMonitoringBox);
         }
 
         void initComboNic(ComboBox box)
         {
             var arrInterfaces = NetworkInterface.GetAllNetworkInterfaces();
             String[] dataSource = arrInterfaces.Select(e => e.Name).ToArray();
-            cBNic.DataSource = dataSource;
+            box.DataSource = dataSource;
         }
 
         //This action is tied to the 'Send Packet' button of the 'Power Temp' tab
@@ -312,6 +321,75 @@ namespace GS_GUI
             tbListenResult.SelectionStart = tbListenResult.Text.Length;
             // scroll it automatically
             tbListenResult.ScrollToCaret();
+        }
+
+        private void monitorPortButton_Click(object sender, EventArgs e)
+        {
+            var portVal = 0;
+
+            var checkInt = int.TryParse(portEntryTextBox.Text, out portVal);
+
+            if (!checkInt)
+            {
+                outputListBox.Items.Add("Port entry not an integer, come on... play nice");
+                return;
+            }
+
+            // Start port monitoring if not already doing so
+            if (dataRecordings.ContainsKey(portVal))
+            {
+                outputListBox.Items.Add("Port entry already being monitoreed.  Stop monitoring the port to start again");
+                return;
+            }
+
+            var client = new UDPClient();
+            client.rawDataReceived += StoreUDP;
+            String nicName = (String)cmbMonitoringBox.SelectedItem;
+            NetworkInterface nic = NetworkInterface.GetAllNetworkInterfaces().Where(i => i.Name == nicName).First();
+            var address = nic.GetIPProperties().UnicastAddresses.Where(a => a.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
+            if (address != null)
+            {
+                var ipv4Address = address.Address.ToString();
+                client.StartListening(portVal, ipv4Address);
+                dataRecordings.Add(portVal, client);
+                outputListBox.Items.Add($"Monitoring started of port: {portVal}");
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var portVal = 0;
+
+            var checkInt = int.TryParse(portEntryTextBox.Text, out portVal);
+
+            if (!checkInt)
+            {
+                outputListBox.Items.Add("Port entry not an integer, come on... play nice");
+                return;
+            }
+
+            if (!dataRecordings.ContainsKey(portVal))
+            {
+                outputListBox.Items.Add("Port entry not being monitoreed.");
+                return;
+            }
+
+            dataRecordings[portVal].StopListening();
+            dataRecordings.Remove(portVal);
+            outputListBox.Items.Add($"Port: {portVal} not being monitoreed.");
+        }
+
+        public void StoreUDP(String result)
+        {
+            if (this.tbListenResult.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(StoreUDP);
+                this.Invoke(d, new object[] { result });
+            }
+            else
+            {
+                logger.Info(result);
+            }
         }
     }
 }
