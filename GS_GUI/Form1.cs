@@ -152,26 +152,53 @@ namespace GS_GUI
         {
             Param[] parameters = AllPackets[TYPE].Parameters;
 
-            //each tab has as many labels and textboxes as the number of parameters we have to test
-            for (int i = 0; i < parameters.Length; i++)
+            if (TYPE == PacketTypes.POWER_A_BMS)
             {
-                //first we formate the textbox name and label, I made it as such as the names follow each other when I created them with the design,
-                //by creating them one after the other the name (number) automatically follows the previous one 
-                String textBoxName = String.Format("textBox{0}", txtBoxOffset + i);
-                String labelName = String.Format("label{0}", lblOffset + i);
-                //Retrieve the controls using their name
-                TextBox txtBox = (TextBox)tabPage.Controls[textBoxName];
-                Label lbl = (Label)tabPage.Controls[labelName];
+                powerBMSDynamicPanel.Controls.Clear();
 
-                //Initialise the textbox to "0" otherwise you will get an exception when converting it to bytes when you'll create the packet
-                txtBox.Text = "0";
-                //change the tabindex, it's friendlier for the user, that way you can navigate using the tab button
-                txtBox.TabIndex = i + 1;
-                //inputcontrol, still needs work, for now only allowing numbers and decimals
-                txtBox.KeyPress += checkInputHandler;
-                //initialise label text with parameter name
-                lbl.Text = parameters[i].Name;
+                for (int i = parameters.Length -1; i >= 0; i--)
+                {
+                    // new panel
+                    var newPanel = new Panel();
+                    newPanel.Dock = DockStyle.Top;
+                    newPanel.Height = 25;
+
+                    var newLabel = new Label();
+                    newLabel.Text = parameters[i].Name;
+                    newLabel.Dock = DockStyle.Left;
+                    newPanel.Controls.Add(newLabel);
+
+                    var newTextBox = new TextBox();
+                    newTextBox.Dock = DockStyle.Right;
+                    newPanel.Controls.Add(newTextBox);
+
+                    powerBMSDynamicPanel.Controls.Add(newPanel);
+                }
             }
+            else
+            {
+                //each tab has as many labels and textboxes as the number of parameters we have to test
+                for (int i = 0; i < parameters.Length; i++)
+                {
+                    //first we formate the textbox name and label, I made it as such as the names follow each other when I created them with the design,
+                    //by creating them one after the other the name (number) automatically follows the previous one 
+                    String textBoxName = String.Format("textBox{0}", txtBoxOffset + i);
+                    String labelName = String.Format("label{0}", lblOffset + i);
+                    //Retrieve the controls using their name
+                    TextBox txtBox = (TextBox)tabPage.Controls[textBoxName];
+                    Label lbl = (Label)tabPage.Controls[labelName];
+
+                    //Initialise the textbox to "0" otherwise you will get an exception when converting it to bytes when you'll create the packet
+                    txtBox.Text = "0";
+                    //change the tabindex, it's friendlier for the user, that way you can navigate using the tab button
+                    txtBox.TabIndex = i + 1;
+                    //inputcontrol, still needs work, for now only allowing numbers and decimals
+                    txtBox.KeyPress += checkInputHandler;
+                    //initialise label text with parameter name
+                    lbl.Text = parameters[i].Name;
+                }
+            }
+            
         }
 
         //https://stackoverflow.com/a/463335/7948667
@@ -196,8 +223,26 @@ namespace GS_GUI
         //This function handles the getting of parameter values and sending them
         void sendSinglePacket(PacketTypes packetType, TabPage page, int textBoxOffset)
         {
-            //Retrieve the values from the corresponding tab page
-            String[] arrValues = GetValues(page, packetType, textBoxOffset);
+            String[] arrValues;
+
+            if (packetType == PacketTypes.POWER_A_BMS || packetType == PacketTypes.POWER_B_BMS)
+            {
+                int count = 0;
+                var numOfDynamicParams = powerBMSDynamicPanel.Controls.Count;
+                arrValues = new string[numOfDynamicParams];
+                for (int i = numOfDynamicParams - 1; i >= 0; i--)
+                {
+                    var panel = (Panel)powerBMSDynamicPanel.Controls[i];
+                    var textbox = (TextBox)panel.Controls[1];
+                    arrValues[count++] = textbox.Text;
+                }
+            }
+            else
+            {
+                //Retrieve the values from the corresponding tab page
+                arrValues = GetValues(page, packetType, textBoxOffset);
+            }
+            
             //make the appropriate formatted udp packet corresponding to the packet type
             byte[] udp = PacketMaker.makeUDP(packetType, arrValues);
             //sends the packet to the relevant port using the packettype
