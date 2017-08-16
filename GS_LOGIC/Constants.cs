@@ -248,9 +248,19 @@ namespace GS_LOGIC
                 new Param {Name =  "16 BMS ID", Type = typeof(byte), Units = "", Size = 1},
                 new Param {Name =  "Voltage Updates", Type = typeof(UInt32), Units = "updates", Size = 4},
                 new Param {Name =  "Temp Scan Count", Type = typeof(UInt32), Units = "scans", Size = 4},
-                new Param {Name =  "Pack Current", Type = typeof(float), Units = "A", Size = 4} }
+                new Param {Name =  "Pack Current", Type = typeof(float), Units = "A", Size = 4} },
+      NominalConditions = new Nominals[]
+      {
+          //new Nominals {Parameter="" , MinValue = new Parameter{} , MaxValue = new Parameter{}},
+          new Nominals {Parameter = "Average Temp",MinValue = new Parameter { FloatVal = 0f },MaxValue = new Parameter { FloatVal = 50f }},
+          new Nominals {Parameter= "Highest Sensor Value", MinValue =  new Parameter { FloatVal = 0f },MaxValue = new Parameter { FloatVal = 50f }},
+          new Nominals {Parameter= "Highest Cell Volts",  MinValue = new Parameter { FloatVal = 75.6f },MaxValue = new Parameter { FloatVal = 75.6f } },
+          new Nominals {Parameter= "Lowest Cell Volts" , MinValue =  new Parameter { FloatVal = 62.1f },MaxValue = new Parameter { FloatVal = 62.1f }},
+          new Nominals {Parameter= "Pack Current", MinValue =  new Parameter { FloatVal = 0f },MaxValue = new Parameter { FloatVal = 550f }},
+      },
     }
             },
+
                         {
                 PacketTypes.POWER_B_BMS,
                 new PacketDefinition{

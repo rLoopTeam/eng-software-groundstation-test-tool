@@ -10,10 +10,18 @@ namespace GS_LOGIC
 {
     public class PacketMaker
     {
+        public static byte[] makeUDP(PacketTypes type, byte[] payload)
+        {
+            return _makeUDP(type, payload);
+        }
         public static byte[] makeUDP(PacketTypes type, String[] stringValues)
         {
             //convert the represented string values to bytes
             byte[] payload = retrievePayload(type, stringValues);
+            return _makeUDP(type, payload);
+        }
+        private static byte[] _makeUDP(PacketTypes type, byte[] payload)
+        {
             //initialize sizes, these correspond to the udp packet structures
             int sequenceSize = 4;
             int packetTypeSize = 2;
@@ -68,13 +76,17 @@ namespace GS_LOGIC
             int numberOfParametersInLoop = 0;
             bool countParam = false;
 
+            //establish if there is a loop of parameters in the packet type
+            //if true count how many of the parameters are looped
+            //this information is used later to determine the payload, and therefore the packet size
             for(int i = 0; i < parameters.Length; i++)
             {
                 if (parameters[i].BeginLoop) countParam = true;
                 if (countParam) numberOfParametersInLoop++;
                 if (parameters[i].EndLoop) countParam = false;
             }
-
+            //count the number of times the loop occurs in the stream of values
+            //this occurs so that we can establish the payload size
             for (int i = 0; i < parameters.Length; i++)
             {
                 if (parameters[i].BeginLoop)
@@ -92,6 +104,7 @@ namespace GS_LOGIC
                 }  
             }
 
+            //create bytearray to populate with the payload
             byte[] payload = new byte[payloadSize];
             int nextPayloadPosition = 0;
 
@@ -209,19 +222,21 @@ namespace GS_LOGIC
             switch (type.ToString())
             {
                 case "System.Byte":
-                    return BitConverter.GetBytes(byte.Parse(value));
+                    return GetUInt8ToBytes(value);
                 case "System.UInt16":
-                    return BitConverter.GetBytes(UInt16.Parse(value));
+                    return GetUInt16ToBytes(value);
                 case "System.UInt32":
-                    return BitConverter.GetBytes(UInt32.Parse(value));
+                    return GetUInt32ToBytes(value);
                 case "System.Int16":
-                    return BitConverter.GetBytes(Int16.Parse(value));
+                    return GetInt16ToBytes(value);
                 case "System.Int32":
-                    return BitConverter.GetBytes(Int32.Parse(value));
+                    return GetInt32ToBytes(value);
                 case "System.Int64":
-                    return BitConverter.GetBytes(Int64.Parse(value));
+                    return GetInt64ToBytes(value);
+                case "System.UInt64":
+                    return GetUInt64ToBytes(value);
                 case "System.Single":
-                    return BitConverter.GetBytes(float.Parse(value));
+                    return GetFloatToBytes(value);
                 default: return new byte[] { 0 };
             }
         }

@@ -21,7 +21,8 @@ namespace GS_LOGIC
         public void sendPacket(byte[] packet,PacketTypes packetType)
         {
             int port = Remotes[AllPackets[packetType].Node];
-            IPEndPoint host = new IPEndPoint(IPAddress.Broadcast, port);
+            
+            IPEndPoint host = new IPEndPoint(IPAddress.Parse("192.168.1.95"), port);
             server.Send(packet, packet.Length, host);
         }
     }

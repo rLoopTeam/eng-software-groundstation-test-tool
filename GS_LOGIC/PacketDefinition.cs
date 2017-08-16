@@ -17,7 +17,15 @@ namespace GS_LOGIC
         public Boolean DAQ { get; set; }
         public Param[] Parameters { get; set; }
 
+        public Nominals[] NominalConditions {get; set;}
+
+    public class Nominals
+    {
+        public String Parameter { get; set; }
+        public Parameter MinValue { get; set; }
+        public Parameter MaxValue { get; set; }
     }
+}
 
     public class Param
     {

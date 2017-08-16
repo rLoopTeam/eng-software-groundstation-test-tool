@@ -62,7 +62,7 @@ namespace GS_GUI
             //byte[] udp = PacketMaker.makeUDP(packetType, payload);
             //server.sendPacket(udp, packetType);
 
-            sendSinglePacket(packetType, tabPowerTemp, 231,4);
+            sendSinglePacket(packetType, tabPowerTemp, 231,4,2);
             sendSinglePacket(packetType2, tabPowerTemp, 237, 12,2);
         }
         //This action is tied to the 'Send Packet' button of the 'Power BMS' tab
@@ -195,9 +195,11 @@ namespace GS_GUI
             var parameters = Constants.AllPackets[packetType].Parameters;
             int parameterLength = parameters.Length;
             var tabControls = page.Controls;
+            int precedingParameters = pre == -1 ? 0 : pre-1;
 
-            length = amount == -1 ? parameterLength : parameterLength + amount - (1+pre);
-            length = pre == -1 ? length : length - (parameterLength -pre);
+            length = amount == -1 ? parameterLength : amount + pre;
+            //length = amount == -1 ? parameterLength : parameterLength + amount - pre;
+            //length = pre == -1 ? length : length - (parameterLength -pre);
             //Retrieve the values from the corresponding tab page
             String[] arrValues = GetValues(tabControls, textBoxOffset, length);
             //make the appropriate formatted udp packet corresponding to the packet type
