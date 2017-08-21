@@ -540,9 +540,17 @@
             this.portEntryTextBox = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.monitorPortButton = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tabForwardLaser = new System.Windows.Forms.TabPage();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dynamicTabControl = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dynamicOutputListBox = new System.Windows.Forms.ListBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.dynamicNetworkCombobox = new System.Windows.Forms.ComboBox();
+            this.label240 = new System.Windows.Forms.Label();
+            this.dynamicPortEntryBox = new System.Windows.Forms.TextBox();
+            this.dynamicMonitoringStopMonitorPort = new System.Windows.Forms.Button();
+            this.dynamicMonitoringMonitorPort = new System.Windows.Forms.Button();
             this.TabControl_Systems.SuspendLayout();
             this.tabPowerTemp.SuspendLayout();
             this.tabPowerBMS.SuspendLayout();
@@ -556,6 +564,9 @@
             this.panel1.SuspendLayout();
             this.tabDataRecorder.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.dynamicTabControl.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControl_Systems
@@ -571,8 +582,7 @@
             this.TabControl_Systems.Controls.Add(this.tabCommands);
             this.TabControl_Systems.Controls.Add(this.tabDataRecorder);
             this.TabControl_Systems.Controls.Add(this.tabForwardLaser);
-            this.TabControl_Systems.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TabControl_Systems.Location = new System.Drawing.Point(0, 0);
+            this.TabControl_Systems.Location = new System.Drawing.Point(671, 142);
             this.TabControl_Systems.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TabControl_Systems.Name = "TabControl_Systems";
             this.TabControl_Systems.SelectedIndex = 0;
@@ -5562,12 +5572,6 @@
             this.monitorPortButton.UseVisualStyleBackColor = true;
             this.monitorPortButton.Click += new System.EventHandler(this.monitorPortButton_Click);
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // tabForwardLaser
             // 
             this.tabForwardLaser.Location = new System.Drawing.Point(4, 29);
@@ -5577,14 +5581,100 @@
             this.tabForwardLaser.Text = "Forward Laser";
             this.tabForwardLaser.UseVisualStyleBackColor = true;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // dynamicTabControl
             // 
+            this.dynamicTabControl.Controls.Add(this.tabPage1);
             this.dynamicTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dynamicTabControl.Location = new System.Drawing.Point(0, 0);
             this.dynamicTabControl.Name = "dynamicTabControl";
             this.dynamicTabControl.SelectedIndex = 0;
             this.dynamicTabControl.Size = new System.Drawing.Size(1777, 1258);
-            this.dynamicTabControl.TabIndex = 1;
+            this.dynamicTabControl.TabIndex = 2;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.dynamicOutputListBox);
+            this.tabPage1.Controls.Add(this.panel3);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(1769, 1225);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Data Recorder";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // dynamicOutputListBox
+            // 
+            this.dynamicOutputListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicOutputListBox.FormattingEnabled = true;
+            this.dynamicOutputListBox.ItemHeight = 20;
+            this.dynamicOutputListBox.Location = new System.Drawing.Point(0, 59);
+            this.dynamicOutputListBox.Name = "dynamicOutputListBox";
+            this.dynamicOutputListBox.Size = new System.Drawing.Size(1769, 1166);
+            this.dynamicOutputListBox.TabIndex = 2;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.dynamicNetworkCombobox);
+            this.panel3.Controls.Add(this.label240);
+            this.panel3.Controls.Add(this.dynamicPortEntryBox);
+            this.panel3.Controls.Add(this.dynamicMonitoringStopMonitorPort);
+            this.panel3.Controls.Add(this.dynamicMonitoringMonitorPort);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1769, 59);
+            this.panel3.TabIndex = 1;
+            // 
+            // dynamicNetworkCombobox
+            // 
+            this.dynamicNetworkCombobox.FormattingEnabled = true;
+            this.dynamicNetworkCombobox.Location = new System.Drawing.Point(843, 17);
+            this.dynamicNetworkCombobox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dynamicNetworkCombobox.Name = "dynamicNetworkCombobox";
+            this.dynamicNetworkCombobox.Size = new System.Drawing.Size(428, 28);
+            this.dynamicNetworkCombobox.TabIndex = 14;
+            // 
+            // label240
+            // 
+            this.label240.AutoSize = true;
+            this.label240.Location = new System.Drawing.Point(698, 20);
+            this.label240.Name = "label240";
+            this.label240.Size = new System.Drawing.Size(139, 20);
+            this.label240.TabIndex = 13;
+            this.label240.Text = "Network Interface:";
+            // 
+            // dynamicPortEntryBox
+            // 
+            this.dynamicPortEntryBox.Location = new System.Drawing.Point(8, 20);
+            this.dynamicPortEntryBox.Name = "dynamicPortEntryBox";
+            this.dynamicPortEntryBox.Size = new System.Drawing.Size(100, 26);
+            this.dynamicPortEntryBox.TabIndex = 2;
+            // 
+            // dynamicMonitoringStopMonitorPort
+            // 
+            this.dynamicMonitoringStopMonitorPort.Location = new System.Drawing.Point(277, 12);
+            this.dynamicMonitoringStopMonitorPort.Name = "dynamicMonitoringStopMonitorPort";
+            this.dynamicMonitoringStopMonitorPort.Size = new System.Drawing.Size(191, 41);
+            this.dynamicMonitoringStopMonitorPort.TabIndex = 1;
+            this.dynamicMonitoringStopMonitorPort.Text = "Stop Monitoring Port";
+            this.dynamicMonitoringStopMonitorPort.UseVisualStyleBackColor = true;
+            this.dynamicMonitoringStopMonitorPort.Click += new System.EventHandler(this.dynamicMonitoringStopMonitorPort_Click);
+            // 
+            // dynamicMonitoringMonitorPort
+            // 
+            this.dynamicMonitoringMonitorPort.Location = new System.Drawing.Point(114, 12);
+            this.dynamicMonitoringMonitorPort.Name = "dynamicMonitoringMonitorPort";
+            this.dynamicMonitoringMonitorPort.Size = new System.Drawing.Size(157, 41);
+            this.dynamicMonitoringMonitorPort.TabIndex = 0;
+            this.dynamicMonitoringMonitorPort.Text = "Monitor Port";
+            this.dynamicMonitoringMonitorPort.UseVisualStyleBackColor = true;
+            this.dynamicMonitoringMonitorPort.Click += new System.EventHandler(this.dynamicMonitoringMonitorPort_Click_1);
             // 
             // Form1
             // 
@@ -5619,6 +5709,10 @@
             this.tabDataRecorder.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.dynamicTabControl.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -6139,6 +6233,14 @@
         private System.Windows.Forms.Panel powerBMSDynamicPanel;
         private System.Windows.Forms.TabPage tabForwardLaser;
         private System.Windows.Forms.TabControl dynamicTabControl;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ListBox dynamicOutputListBox;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.ComboBox dynamicNetworkCombobox;
+        private System.Windows.Forms.Label label240;
+        private System.Windows.Forms.TextBox dynamicPortEntryBox;
+        private System.Windows.Forms.Button dynamicMonitoringStopMonitorPort;
+        private System.Windows.Forms.Button dynamicMonitoringMonitorPort;
     }
 }
 

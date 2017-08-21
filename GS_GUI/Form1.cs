@@ -68,6 +68,7 @@ namespace GS_GUI
             cBNic.SelectedValueChanged += stopListening;
             initComboNic(cBListenNode);
             initComboNic(cmbMonitoringBox);
+            initComboNic(dynamicNetworkCombobox);
         }
 
         void initComboNic(ComboBox box)
@@ -528,6 +529,63 @@ namespace GS_GUI
             {
                 logger.Info(result);
             }
+        }
+
+        private void dynamicMonitoringMonitorPort_Click_1(object sender, EventArgs e)
+        {
+            var portVal = 0;
+
+            var checkInt = int.TryParse(dynamicPortEntryBox.Text, out portVal);
+
+            if (!checkInt)
+            {
+                dynamicOutputListBox.Items.Add("Port entry not an integer, come on... play nice");
+                return;
+            }
+
+            // Start port monitoring if not already doing so
+            if (dataRecordings.ContainsKey(portVal))
+            {
+                dynamicOutputListBox.Items.Add("Port entry already being monitoreed.  Stop monitoring the port to start again");
+                return;
+            }
+
+            var client = new UDPClient();
+            client.rawDataReceived += StoreUDP;
+            String nicName = (String)cmbMonitoringBox.SelectedItem;
+            NetworkInterface nic = NetworkInterface.GetAllNetworkInterfaces().Where(i => i.Name == nicName).First();
+            var address = nic.GetIPProperties().UnicastAddresses.Where(a => a.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
+            if (address != null)
+            {
+                var ipv4Address = address.Address.ToString();
+                client.StartListening(portVal, ipv4Address);
+                dataRecordings.Add(portVal, client);
+                dynamicOutputListBox.Items.Add($"Monitoring started of port: {portVal}");
+            }
+        }
+
+
+        private void dynamicMonitoringStopMonitorPort_Click(object sender, EventArgs e)
+        {
+            var portVal = 0;
+
+            var checkInt = int.TryParse(dynamicPortEntryBox.Text, out portVal);
+
+            if (!checkInt)
+            {
+                dynamicOutputListBox.Items.Add("Port entry not an integer, come on... play nice");
+                return;
+            }
+
+            if (!dataRecordings.ContainsKey(portVal))
+            {
+                dynamicOutputListBox.Items.Add("Port entry not being monitoreed.");
+                return;
+            }
+
+            dataRecordings[portVal].StopListening();
+            dataRecordings.Remove(portVal);
+            dynamicOutputListBox.Items.Add($"Port: {portVal} not being monitoreed.");
         }
     }
 }
