@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static GS_LOGIC.PacketDefinition;
 
 namespace GS_LOGIC
@@ -46,9 +43,9 @@ namespace GS_LOGIC
         {
             { Nodes.POWER_NODE_A,9110 },
             { Nodes.POWER_NODE_B,9111 },
-            { Nodes.FLIGHT_CONTROL,9100 },
-            { Nodes.LANDING_GEAR,9120 },
-            { Nodes.GIMBAL_CONTROL,9130 },
+            { Nodes.FLIGHT_CONTROL,9531 },
+            { Nodes.LANDING_GEAR,9548 },
+            { Nodes.GIMBAL_CONTROL,9619 },
             { Nodes.XILINX_SIM,9170 }
         };
 
@@ -557,13 +554,18 @@ namespace GS_LOGIC
       DAQ = false,
       Parameters = new Param[] {
                 new Param{Name = "Fault flags", Type = typeof(UInt32), Units = "", Size = 4},
-                new Param{Name = "Spare 0", Type = typeof(UInt32), Units = "", Size = 4},
-                new Param{Name = "Spare 1", Type = typeof(UInt32), Units = "", Size = 4},
-                new Param{Name = "RAW value", Type = typeof(float), Units = "", Size = 4},
-                new Param{Name = "Filtered value", Type = typeof(float), Units = "mm", Size = 4},
-                new Param{Name = "Spare 3", Type = typeof(UInt32), Units = "", Size = 4}
-      }
+                new Param{Name = "Distance (mm)", Type = typeof(UInt32), Units = "mm", Size = 4},
+                new Param{Name = "Previous dist (mm)", Type = typeof(UInt32), Units = "mm", Size = 4},
+                new Param{Name = "Velocity", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Distance Raw", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Acceleration", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Prev Accel", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Binary dist", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Missed start", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Bad distance", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Error code", Type = typeof(UInt32), Units = "", Size = 4}
             }
+    }
     },{PacketTypes.FLIGHT_CONTROL_LASER_CONTRAST_0, new PacketDefinition {
       Name = "Flight Control - Laser Contrast 0",
       ParameterPrefix = "LaserContrast0 ",

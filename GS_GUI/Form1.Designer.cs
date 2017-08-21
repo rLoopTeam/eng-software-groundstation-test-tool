@@ -42,6 +42,7 @@
             this.comboBoxPowerTemp = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPowerBMS = new System.Windows.Forms.TabPage();
+            this.powerBMSDynamicPanel = new System.Windows.Forms.Panel();
             this.buttonPowerBMSSingle = new System.Windows.Forms.Button();
             this.comboBoxPowerBMS = new System.Windows.Forms.ComboBox();
             this.textBox34 = new System.Windows.Forms.TextBox();
@@ -540,7 +541,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.monitorPortButton = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.powerBMSDynamicPanel = new System.Windows.Forms.Panel();
+            this.tabForwardLaser = new System.Windows.Forms.TabPage();
+            this.dynamicTabControl = new System.Windows.Forms.TabControl();
             this.TabControl_Systems.SuspendLayout();
             this.tabPowerTemp.SuspendLayout();
             this.tabPowerBMS.SuspendLayout();
@@ -568,6 +570,7 @@
             this.TabControl_Systems.Controls.Add(this.tabSteppers);
             this.TabControl_Systems.Controls.Add(this.tabCommands);
             this.TabControl_Systems.Controls.Add(this.tabDataRecorder);
+            this.TabControl_Systems.Controls.Add(this.tabForwardLaser);
             this.TabControl_Systems.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControl_Systems.Location = new System.Drawing.Point(0, 0);
             this.TabControl_Systems.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -575,6 +578,7 @@
             this.TabControl_Systems.SelectedIndex = 0;
             this.TabControl_Systems.Size = new System.Drawing.Size(1777, 1258);
             this.TabControl_Systems.TabIndex = 0;
+            this.TabControl_Systems.Visible = false;
             // 
             // tabPowerTemp
             // 
@@ -592,7 +596,7 @@
             this.tabPowerTemp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPowerTemp.Name = "tabPowerTemp";
             this.tabPowerTemp.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPowerTemp.Size = new System.Drawing.Size(1769, 948);
+            this.tabPowerTemp.Size = new System.Drawing.Size(1769, 1225);
             this.tabPowerTemp.TabIndex = 0;
             this.tabPowerTemp.Text = "Power Temp";
             this.tabPowerTemp.UseVisualStyleBackColor = true;
@@ -804,6 +808,16 @@
             this.tabPowerBMS.TabIndex = 1;
             this.tabPowerBMS.Text = "Power BMS";
             this.tabPowerBMS.UseVisualStyleBackColor = true;
+            // 
+            // powerBMSDynamicPanel
+            // 
+            this.powerBMSDynamicPanel.AutoScroll = true;
+            this.powerBMSDynamicPanel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.powerBMSDynamicPanel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.powerBMSDynamicPanel.Location = new System.Drawing.Point(1247, 5);
+            this.powerBMSDynamicPanel.Name = "powerBMSDynamicPanel";
+            this.powerBMSDynamicPanel.Size = new System.Drawing.Size(518, 1215);
+            this.powerBMSDynamicPanel.TabIndex = 54;
             // 
             // buttonPowerBMSSingle
             // 
@@ -1776,7 +1790,7 @@
             this.tabPowerCooling.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPowerCooling.Name = "tabPowerCooling";
             this.tabPowerCooling.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabPowerCooling.Size = new System.Drawing.Size(1769, 948);
+            this.tabPowerCooling.Size = new System.Drawing.Size(1769, 1225);
             this.tabPowerCooling.TabIndex = 2;
             this.tabPowerCooling.Text = "Power Cooling";
             this.tabPowerCooling.UseVisualStyleBackColor = true;
@@ -2286,7 +2300,7 @@
             this.tabLaserOpto.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabLaserOpto.Name = "tabLaserOpto";
             this.tabLaserOpto.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabLaserOpto.Size = new System.Drawing.Size(1283, 1242);
+            this.tabLaserOpto.Size = new System.Drawing.Size(1769, 1225);
             this.tabLaserOpto.TabIndex = 3;
             this.tabLaserOpto.Text = "Laser Opto";
             this.tabLaserOpto.UseVisualStyleBackColor = true;
@@ -3217,7 +3231,7 @@
             this.tabAccel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabAccel.Name = "tabAccel";
             this.tabAccel.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabAccel.Size = new System.Drawing.Size(1283, 1242);
+            this.tabAccel.Size = new System.Drawing.Size(1769, 1225);
             this.tabAccel.TabIndex = 4;
             this.tabAccel.Text = "Accelerometers";
             this.tabAccel.UseVisualStyleBackColor = true;
@@ -3782,7 +3796,7 @@
             this.tabThrottles.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabThrottles.Name = "tabThrottles";
             this.tabThrottles.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabThrottles.Size = new System.Drawing.Size(1283, 1242);
+            this.tabThrottles.Size = new System.Drawing.Size(1769, 1225);
             this.tabThrottles.TabIndex = 5;
             this.tabThrottles.Text = "Throttles";
             this.tabThrottles.UseVisualStyleBackColor = true;
@@ -4305,7 +4319,7 @@
             this.tabBrakes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabBrakes.Name = "tabBrakes";
             this.tabBrakes.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabBrakes.Size = new System.Drawing.Size(1283, 1242);
+            this.tabBrakes.Size = new System.Drawing.Size(1769, 1225);
             this.tabBrakes.TabIndex = 6;
             this.tabBrakes.Text = "Brakes";
             this.tabBrakes.UseVisualStyleBackColor = true;
@@ -5132,7 +5146,7 @@
             this.tabSteppers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabSteppers.Name = "tabSteppers";
             this.tabSteppers.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabSteppers.Size = new System.Drawing.Size(1283, 1242);
+            this.tabSteppers.Size = new System.Drawing.Size(1769, 1225);
             this.tabSteppers.TabIndex = 7;
             this.tabSteppers.Text = "Steppers";
             this.tabSteppers.UseVisualStyleBackColor = true;
@@ -5343,7 +5357,7 @@
             this.tabCommands.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabCommands.Name = "tabCommands";
             this.tabCommands.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabCommands.Size = new System.Drawing.Size(1283, 1242);
+            this.tabCommands.Size = new System.Drawing.Size(1769, 1225);
             this.tabCommands.TabIndex = 8;
             this.tabCommands.Text = "Commands";
             this.tabCommands.UseVisualStyleBackColor = true;
@@ -5355,7 +5369,7 @@
             this.tbListenResult.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbListenResult.Name = "tbListenResult";
             this.tbListenResult.ReadOnly = true;
-            this.tbListenResult.Size = new System.Drawing.Size(666, 1234);
+            this.tbListenResult.Size = new System.Drawing.Size(1152, 1217);
             this.tbListenResult.TabIndex = 3;
             this.tbListenResult.Text = "";
             this.tbListenResult.TextChanged += new System.EventHandler(this.tbListenResult_TextChanged);
@@ -5372,9 +5386,9 @@
             this.panel1.Controls.Add(this.label237);
             this.panel1.Controls.Add(this.cBListenNode);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(669, 4);
+            this.panel1.Location = new System.Drawing.Point(1155, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(611, 1234);
+            this.panel1.Size = new System.Drawing.Size(611, 1217);
             this.panel1.TabIndex = 7;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -5475,7 +5489,7 @@
             this.tabDataRecorder.Controls.Add(this.panel2);
             this.tabDataRecorder.Location = new System.Drawing.Point(4, 29);
             this.tabDataRecorder.Name = "tabDataRecorder";
-            this.tabDataRecorder.Size = new System.Drawing.Size(1290, 1242);
+            this.tabDataRecorder.Size = new System.Drawing.Size(1769, 1225);
             this.tabDataRecorder.TabIndex = 9;
             this.tabDataRecorder.Text = "Data Recorder";
             this.tabDataRecorder.UseVisualStyleBackColor = true;
@@ -5487,7 +5501,7 @@
             this.outputListBox.ItemHeight = 20;
             this.outputListBox.Location = new System.Drawing.Point(0, 59);
             this.outputListBox.Name = "outputListBox";
-            this.outputListBox.Size = new System.Drawing.Size(1290, 1183);
+            this.outputListBox.Size = new System.Drawing.Size(1769, 1166);
             this.outputListBox.TabIndex = 1;
             // 
             // panel2
@@ -5500,7 +5514,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1290, 59);
+            this.panel2.Size = new System.Drawing.Size(1769, 59);
             this.panel2.TabIndex = 0;
             // 
             // cmbMonitoringBox
@@ -5554,21 +5568,30 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // powerBMSDynamicPanel
+            // tabForwardLaser
             // 
-            this.powerBMSDynamicPanel.AutoScroll = true;
-            this.powerBMSDynamicPanel.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.powerBMSDynamicPanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.powerBMSDynamicPanel.Location = new System.Drawing.Point(1247, 5);
-            this.powerBMSDynamicPanel.Name = "powerBMSDynamicPanel";
-            this.powerBMSDynamicPanel.Size = new System.Drawing.Size(518, 1215);
-            this.powerBMSDynamicPanel.TabIndex = 54;
+            this.tabForwardLaser.Location = new System.Drawing.Point(4, 29);
+            this.tabForwardLaser.Name = "tabForwardLaser";
+            this.tabForwardLaser.Size = new System.Drawing.Size(1769, 1225);
+            this.tabForwardLaser.TabIndex = 10;
+            this.tabForwardLaser.Text = "Forward Laser";
+            this.tabForwardLaser.UseVisualStyleBackColor = true;
+            // 
+            // dynamicTabControl
+            // 
+            this.dynamicTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dynamicTabControl.Location = new System.Drawing.Point(0, 0);
+            this.dynamicTabControl.Name = "dynamicTabControl";
+            this.dynamicTabControl.SelectedIndex = 0;
+            this.dynamicTabControl.Size = new System.Drawing.Size(1777, 1258);
+            this.dynamicTabControl.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1777, 1258);
+            this.Controls.Add(this.dynamicTabControl);
             this.Controls.Add(this.TabControl_Systems);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
@@ -6114,6 +6137,8 @@
         private System.Windows.Forms.ComboBox cmbMonitoringBox;
         private System.Windows.Forms.Label label239;
         private System.Windows.Forms.Panel powerBMSDynamicPanel;
+        private System.Windows.Forms.TabPage tabForwardLaser;
+        private System.Windows.Forms.TabControl dynamicTabControl;
     }
 }
 

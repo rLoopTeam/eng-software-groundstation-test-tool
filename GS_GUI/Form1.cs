@@ -29,18 +29,33 @@ namespace GS_GUI
             initComboBoxes();
             this.FormClosing += Form1_FormClosing;
             XmlConfigurator.Configure();
-            
+
         }
 
         private void initTabs()
         {
-            initTabControl(PacketTypes.POWER_A_BMS, tabPowerBMS, 1, 6);
-            initTabControl(PacketTypes.LASER_OPTO_SENSOR, tabLaserOpto, 72, 77);
-            initTabControl(PacketTypes.POWER_A_COOLING, tabPowerCooling, 51, 56);
-            initTabControl(PacketTypes.ACCEL_DATA_FULL, tabAccel, 122, 128);
-            initTabControl(PacketTypes.THROTTLE_PARAMETERS, tabThrottles, 150, 156);
-            initTabControl(PacketTypes.BRAKE_DATA, tabBrakes, 174, 180);
-            initTabControl(PacketTypes.MOTOR_PARAMETERS, tabSteppers, 220, 226);
+            //initTabControl(PacketTypes.POWER_A_BMS, tabPowerBMS, 1, 6);
+            //initTabControl(PacketTypes.LASER_OPTO_SENSOR, tabLaserOpto, 72, 77);
+            //initTabControl(PacketTypes.POWER_A_COOLING, tabPowerCooling, 51, 56);
+            //initTabControl(PacketTypes.ACCEL_DATA_FULL, tabAccel, 122, 128);
+            //initTabControl(PacketTypes.THROTTLE_PARAMETERS, tabThrottles, 150, 156);
+            //initTabControl(PacketTypes.BRAKE_DATA, tabBrakes, 174, 180);
+            //initTabControl(PacketTypes.MOTOR_PARAMETERS, tabSteppers, 220, 226);
+
+            //SetUpDynamicTab(PacketTypes.FORWARD_LASER_DISTANCE_SENSOR, tabForwardLaser);
+
+            foreach (var packetDef in Enum.GetValues(typeof(PacketTypes)))
+            {
+
+                var packetType = Enum.Parse(typeof(PacketTypes), packetDef.ToString());
+
+                if (!AllPackets.ContainsKey((PacketTypes)packetType)) continue;
+
+                var newTabPage = new TabPage();
+                newTabPage.Text = packetDef.ToString();
+                dynamicTabControl.TabPages.Add(newTabPage);
+                SetUpDynamicTab((PacketTypes)packetType, newTabPage);
+            }
         }
         void initComboBoxes()
         {
@@ -147,6 +162,62 @@ namespace GS_GUI
             //bind the array to the combobox
             box.DataSource = dataSource;
         }
+
+        void SetUpDynamicTab(PacketTypes type, TabPage tabPage)
+        {
+            Param[] parameters = AllPackets[type].Parameters;
+
+            tabPage.Controls.Clear();
+            // find dynamic tab
+            var dynamicTab = new Panel();
+            dynamicTab.Dock = DockStyle.Left;
+            dynamicTab.Width = 300;
+            dynamicTab.AutoScroll = true;
+
+            for (int i = parameters.Length - 1; i >= 0; i--)
+            {
+                // new panel
+                var newPanel = new Panel();
+                newPanel.Dock = DockStyle.Top;
+                newPanel.Height = 25;
+
+                var newLabel = new Label();
+                newLabel.Text = parameters[i].Name;
+                newLabel.Dock = DockStyle.Left;
+                newPanel.Controls.Add(newLabel);
+
+                var newTextBox = new TextBox();
+                newTextBox.Dock = DockStyle.Right;
+                newPanel.Controls.Add(newTextBox);
+
+                dynamicTab.Controls.Add(newPanel);
+            }
+
+            tabPage.Controls.Add(dynamicTab);
+
+            // new button
+            var sendButton = new Button();
+            sendButton.Text = "Send";
+            sendButton.Dock = DockStyle.Right;
+
+            var buttonTag = new ButtonTag
+            {
+                DynamicPanel = dynamicTab,
+                PacketType = type
+            };
+            sendButton.Tag = buttonTag;
+
+            sendButton.Click += SendButton_Click;
+
+            tabPage.Controls.Add(sendButton);
+        }
+
+        private void SendButton_Click(object sender, EventArgs e)
+        {
+            var buttonTag = (ButtonTag)(((Button)sender).Tag);
+            sendSinglePacket(buttonTag.PacketType, buttonTag.DynamicPanel);
+        }
+
         //because there are too many parameters, it is easier and faster to initialise labels and textboxes programatically instead of using the  Visual Studio Design tool
         void initTabControl(PacketTypes TYPE, TabPage tabPage, int txtBoxOffset, int lblOffset)
         {
@@ -156,7 +227,7 @@ namespace GS_GUI
             {
                 powerBMSDynamicPanel.Controls.Clear();
 
-                for (int i = parameters.Length -1; i >= 0; i--)
+                for (int i = parameters.Length - 1; i >= 0; i--)
                 {
                     // new panel
                     var newPanel = new Panel();
@@ -198,7 +269,7 @@ namespace GS_GUI
                     lbl.Text = parameters[i].Name;
                 }
             }
-            
+
         }
 
         //https://stackoverflow.com/a/463335/7948667
@@ -242,12 +313,33 @@ namespace GS_GUI
                 //Retrieve the values from the corresponding tab page
                 arrValues = GetValues(page, packetType, textBoxOffset);
             }
-            
+
             //make the appropriate formatted udp packet corresponding to the packet type
             byte[] udp = PacketMaker.makeUDP(packetType, arrValues);
             //sends the packet to the relevant port using the packettype
             server.sendPacket(udp, packetType);
         }
+
+        void sendSinglePacket(PacketTypes packetType, Panel dynamicPanel)
+        {
+            String[] arrValues;
+
+            int count = 0;
+            var numOfDynamicParams = dynamicPanel.Controls.Count;
+            arrValues = new string[numOfDynamicParams];
+            for (int i = numOfDynamicParams - 1; i >= 0; i--)
+            {
+                var panel = (Panel)dynamicPanel.Controls[i];
+                var textbox = (TextBox)panel.Controls[1];
+                arrValues[count++] = textbox.Text;
+            }
+
+            //make the appropriate formatted udp packet corresponding to the packet type
+            byte[] udp = PacketMaker.makeUDP(packetType, arrValues);
+            //sends the packet to the relevant port using the packettype
+            server.sendPacket(udp, packetType);
+        }
+
         //this one is used to retrieve the values from the textboxes from a certain tab, using the tabpage, packettype and the offset from which the textboxnumbering begins
         private String[] GetValues(TabPage page, PacketTypes type, int TextBoxOffset)
         {
@@ -288,7 +380,7 @@ namespace GS_GUI
 
         private void stopListening(object sender, EventArgs e)
         {
-            foreach(var client in clients)
+            foreach (var client in clients)
                 client.StopListening();
         }
 
@@ -318,7 +410,7 @@ namespace GS_GUI
         {
             if (lstListen.Items.Count == 0) { MessageBox.Show("Nothing to monitor", "Issue"); return; }
 
-            foreach(var t in lstListen.Items)
+            foreach (var t in lstListen.Items)
             {
                 var client = new UDPClient();
                 client.dataReceived += displayListeningPackets;
