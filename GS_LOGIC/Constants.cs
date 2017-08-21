@@ -13,7 +13,8 @@ namespace GS_LOGIC
             FLIGHT_CONTROL,
             LANDING_GEAR,
             GIMBAL_CONTROL,
-            XILINX_SIM
+            XILINX_SIM,
+            ASI_MONITOR_SYSTEM
         };
 
         public enum PacketTypes
@@ -37,6 +38,9 @@ namespace GS_LOGIC
             LASER_OPTO_SENSOR,
             FORWARD_LASER_DISTANCE_SENSOR,
             FLIGHT_CONTROL_LASER_CONTRAST_0,
+            ASI_DATA,
+            LGU_STATUS,
+            PUSHER_DATA
         };
 
         public static Dictionary<Nodes, int> Remotes = new Dictionary<Nodes, int>()
@@ -46,7 +50,8 @@ namespace GS_LOGIC
             { Nodes.FLIGHT_CONTROL,9531 },
             { Nodes.LANDING_GEAR,9548 },
             { Nodes.GIMBAL_CONTROL,9619 },
-            { Nodes.XILINX_SIM,9170 }
+            { Nodes.XILINX_SIM,9170 },
+            { Nodes.ASI_MONITOR_SYSTEM,9616 }
         };
 
         public static Dictionary<PacketTypes, Nodes> NodesTypes = new Dictionary<PacketTypes, Nodes>() {
@@ -69,6 +74,9 @@ namespace GS_LOGIC
             { PacketTypes.LASER_OPTO_SENSOR,Nodes.FLIGHT_CONTROL },
             { PacketTypes.FORWARD_LASER_DISTANCE_SENSOR,Nodes.FLIGHT_CONTROL },
             { PacketTypes.FLIGHT_CONTROL_LASER_CONTRAST_0,Nodes.FLIGHT_CONTROL },
+            { PacketTypes.ASI_DATA,Nodes.ASI_MONITOR_SYSTEM },
+            { PacketTypes.LGU_STATUS, Nodes.LANDING_GEAR },
+            { PacketTypes.PUSHER_DATA, Nodes.FLIGHT_CONTROL }
         };
 
 
@@ -92,6 +100,9 @@ namespace GS_LOGIC
             { PacketTypes.LASER_OPTO_SENSOR,0x1101 },
             { PacketTypes.FORWARD_LASER_DISTANCE_SENSOR,0x1201 },
             { PacketTypes.FLIGHT_CONTROL_LASER_CONTRAST_0,0x1301 },
+            { PacketTypes.ASI_DATA,0x1701 },
+            { PacketTypes.LGU_STATUS, 0x7002 },
+            { PacketTypes.PUSHER_DATA, 0x1801 }
         };
 
         public static Dictionary<PacketTypes, PacketDefinition> AllPackets = new Dictionary<PacketTypes, PacketDefinition>()
@@ -476,14 +487,14 @@ namespace GS_LOGIC
                 new Param{Name = "Lead Screw mm 1 Current", Type = typeof(float), Units =  "mm", Size = 4},
                 new Param{Name = "MLP 1 Current", Type = typeof(float), Units =  "mm", Size = 4},
 
-                new Param{Name = "Spare 1", Type = typeof(UInt32), Units =  "", Size = 4},
-                new Param{Name = "Spare 1", Type = typeof(UInt32), Units =  "", Size = 4},
+                new Param{Name = "Spare 1_1", Type = typeof(UInt32), Units =  "", Size = 4},
+                new Param{Name = "Spare 1_2", Type = typeof(UInt32), Units =  "", Size = 4},
 
-                new Param{Name = "Limit Extend 1", Type = typeof(byte), Units =  "", Size = 1},
-                new Param{Name = "Limit Retract 1", Type = typeof(byte), Units =  "", Size = 1},
-                new Param{Name = "Limit Extend Edge 1", Type = typeof(byte), Units =  "", Size = 1},
-                new Param{Name = "Limit Retract Edge 1", Type = typeof(byte), Units =  "", Size = 1},
-                new Param{Name = "SW Error 1", Type = typeof(byte), Units =  "", Size = 1},
+                new Param{Name = "Limit Extend 1", Type = typeof(uint), Units =  "", Size = 1},
+                new Param{Name = "Limit Retract 1", Type = typeof(uint), Units =  "", Size = 1},
+                new Param{Name = "Limit Extend Edge 1", Type = typeof(uint), Units =  "", Size = 1},
+                new Param{Name = "Limit Retract Edge 1", Type = typeof(uint), Units =  "", Size = 1},
+                new Param{Name = "SW Error 1", Type = typeof(uint), Units =  "", Size = 1},
 
                 new Param{Name = "ADC Sample 1", Type = typeof(UInt16), Units =  "", Size = 2},
                 new Param{Name = "ADC Zero 1", Type = typeof(UInt16), Units =  "", Size = 2},
@@ -504,11 +515,14 @@ namespace GS_LOGIC
                 new Param{Name = "Lead Screw mm 2 Current", Type = typeof(float), Units =  "mm", Size = 4},
                 new Param{Name = "MLP 2 Current", Type = typeof(float), Units =  "mm", Size = 4},
 
-                new Param{Name = "Limit Extend 2", Type = typeof(byte), Units =  "", Size = 1},
-                new Param{Name = "Limit Retract 2", Type = typeof(byte), Units =  "", Size = 1},
-                new Param{Name = "Limit Extend Edge 2", Type = typeof(byte), Units =  "", Size = 1},
-                new Param{Name = "Limit Retract Edge 2", Type = typeof(byte), Units =  "", Size = 1},
-                new Param{Name = "SW Error 2", Type = typeof(byte), Units =  "", Size = 1},
+                new Param{Name = "Spare 2_1", Type = typeof(UInt32), Units =  "", Size = 4},
+                new Param{Name = "Spare 2_2", Type = typeof(UInt32), Units =  "", Size = 4},
+
+                new Param{Name = "Limit Extend 2", Type = typeof(uint), Units =  "", Size = 1},
+                new Param{Name = "Limit Retract 2", Type = typeof(uint), Units =  "", Size = 1},
+                new Param{Name = "Limit Extend Edge 2", Type = typeof(uint), Units =  "", Size = 1},
+                new Param{Name = "Limit Retract Edge 2", Type = typeof(uint), Units =  "", Size = 1},
+                new Param{Name = "SW Error 2", Type = typeof(uint), Units =  "", Size = 1},
 
                 new Param{Name = "ADC Sample 2", Type = typeof(UInt16), Units =  "", Size = 2},
                 new Param{Name = "ADC Zero 2", Type = typeof(UInt16), Units =  "", Size = 2},
@@ -519,8 +533,8 @@ namespace GS_LOGIC
                 new Param{Name = "Linear Acceleration 2", Type = typeof(UInt32), Units =  "", Size = 4},
                 new Param{Name = "Current Position 2", Type = typeof(UInt32), Units =  "", Size = 4},
 
-                new Param{Name = "State", Type = typeof(byte), Units =  "", Size = 1},
-                new Param{Name = "Calibration State", Type = typeof(byte), Units =  "", Size = 1}
+                new Param{Name = "State", Type = typeof(uint), Units =  "", Size = 1},
+                new Param{Name = "Calibration State", Type = typeof(uint), Units =  "", Size = 1}
       }
     }
 }, {PacketTypes.MOTOR_PARAMETERS, new PacketDefinition
@@ -707,7 +721,143 @@ namespace GS_LOGIC
                 new Param{Name = "Fall_53", Type = typeof(UInt64), Units = "ns", Size = 8}
       }
     }
-    },
+    }, {PacketTypes.ASI_DATA, new PacketDefinition
+            {
+      Name = "ASI Data",
+      ParameterPrefix = "ASI ",
+      PacketType = 0x1701,
+      Node = Nodes.ASI_MONITOR_SYSTEM,
+      DAQ = false,
+      Parameters = new Param[] {
+                new Param {Name = "Fault Flags Root", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "State", Type = typeof(uint), Units = "", Size = 1},
+                new Param {Name = "Scan Index", Type = typeof(uint), Units = "", Size = 1},
+                new Param {Name = "Current Command", Type = typeof(UInt16), Units = "", Size = 2},
+
+                new Param {Name = "1 Controller Fault", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "1 Temperature", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "1 Motor Current", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "1 HE RPM", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "1 Throttle Voltage", Type = typeof(float), Units = "", Size = 4},
+
+                new Param {Name = "2 Controller Fault", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "2 Temperature", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "2 Motor Current", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "2 HE RPM", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "2 Throttle Voltage", Type = typeof(float), Units = "", Size = 4},
+
+                new Param {Name = "3 Controller Fault", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "3 Temperature", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "3 Motor Current", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "3 HE RPM", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "3 Throttle Voltage", Type = typeof(float), Units = "", Size = 4},
+
+                new Param {Name = "4 Controller Fault", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "4 Temperature", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "4 Motor Current", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "4 HE RPM", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "4 Throttle Voltage", Type = typeof(float), Units = "", Size = 4},
+
+                new Param {Name = "5 Controller Fault", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "5 Temperature", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "5 Motor Current", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "5 HE RPM", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "5 Throttle Voltage", Type = typeof(float), Units = "", Size = 4},
+
+                new Param {Name = "6 Controller Fault", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "6 Temperature", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "6 Motor Current", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "6 HE RPM", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "6 Throttle Voltage", Type = typeof(float), Units = "", Size = 4},
+
+                new Param {Name = "7 Controller Fault", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "7 Temperature", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "7 Motor Current", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "7 HE RPM", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "7 Throttle Voltage", Type = typeof(float), Units = "", Size = 4},
+
+                new Param {Name = "8 Controller Fault", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "8 Temperature", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "8 Motor Current", Type = typeof(float), Units = "", Size = 4},
+                new Param {Name = "8 HE RPM", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "8 Throttle Voltage", Type = typeof(float), Units = "", Size = 4},
+      }
+
+    }
+            }, {PacketTypes.LGU_STATUS, new PacketDefinition
+            {
+      Name = "LGU Status",
+      ParameterPrefix = "LGU ",
+      PacketType = 0x7002,
+      Node = Nodes.LANDING_GEAR,
+      DAQ = false,
+      Parameters = new Param[] {
+                new Param {Name = "Fault Flags Root", Type = typeof(UInt32), Units = "", Size = 4},
+
+                new Param {Name = "Fault Flags 1", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "ADC Value 1", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Actual Extension 1", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Computed Height 1", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Switch Extend 1", Type = typeof(uint), Units = "", Size = 1},
+                new Param {Name = "Switch Retract 1", Type = typeof(uint), Units = "", Size = 1},
+                new Param {Name = "Spare 1_1", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Spare 2_1", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Spare 3_1", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Spare 4_1", Type = typeof(UInt32), Units = "", Size = 4},
+
+                new Param {Name = "Fault Flags 2", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "ADC Value 2", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Actual Extension 2", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Computed Height 2", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Switch Extend 2", Type = typeof(uint), Units = "", Size = 1},
+                new Param {Name = "Switch Retract 2", Type = typeof(uint), Units = "", Size = 1},
+                new Param {Name = "Spare 1_2", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Spare 2_2", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Spare 3_2", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Spare 4_2", Type = typeof(UInt32), Units = "", Size = 4},
+
+                new Param {Name = "Fault Flags 3", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "ADC Value 3", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Actual Extension 3", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Computed Height 3", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Switch Extend 3", Type = typeof(uint), Units = "", Size = 1},
+                new Param {Name = "Switch Retract 3", Type = typeof(uint), Units = "", Size = 1},
+                new Param {Name = "Spare 1_3", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Spare 2_3", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Spare 3_3", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Spare 4_3", Type = typeof(UInt32), Units = "", Size = 4},
+
+                new Param {Name = "Fault Flags 4", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "ADC Value 4", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "Actual Extension 4", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Computed Height 4", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Switch Extend 4", Type = typeof(uint), Units = "", Size = 1},
+                new Param {Name = "Switch Retract 4", Type = typeof(uint), Units = "", Size = 1},
+                new Param {Name = "Spare 1_4", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Spare 2_4", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Spare 3_4", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "Spare 4_4", Type = typeof(UInt32), Units = "", Size = 4},
+      }
+
+    }
+            },
+    {PacketTypes.PUSHER_DATA, new PacketDefinition {
+      Name = "Pusher Data",
+      ParameterPrefix = "Pusher ",
+      PacketType = 0x1801,
+      Node = Nodes.FLIGHT_CONTROL,
+      DAQ = false,
+      Parameters = new Param[] {
+                new Param{Name = "Fault flags", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param{Name = "Status", Type = typeof(uint), Units = "", Size = 1},
+                new Param{Name = "Edge Flag 1", Type = typeof(uint), Units = "", Size = 1},
+                new Param{Name = "Edge Flag 2", Type = typeof(uint), Units = "", Size = 1},
+                new Param{Name = "Switch State 1", Type = typeof(uint), Units = "", Size = 1},
+                new Param{Name = "Switch State 2", Type = typeof(uint), Units = "", Size = 1},
+                new Param{Name = "Switch timer", Type = typeof(UInt32), Units = "", Size = 4}
+            }
+    }
+    }
         };
 
         public static UInt16[] CRCHashtable = new UInt16[]

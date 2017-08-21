@@ -188,6 +188,7 @@ namespace GS_GUI
 
                 var newTextBox = new TextBox();
                 newTextBox.Dock = DockStyle.Right;
+                newTextBox.Text = "0";
                 newPanel.Controls.Add(newTextBox);
 
                 dynamicTab.Controls.Add(newPanel);
