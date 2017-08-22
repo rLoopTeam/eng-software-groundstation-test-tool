@@ -26,7 +26,7 @@ namespace GS_LOGIC
             IPAddress add = IPAddress.Parse("192.168.60.255");
             var host2 = new IPEndPoint(add, port);
 
-            server.Send(packet, packet.Length, host2);
+            server.Send(packet, packet.Length, host);
         }
     }
 }
