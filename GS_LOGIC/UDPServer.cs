@@ -22,7 +22,11 @@ namespace GS_LOGIC
         {
             int port = Remotes[AllPackets[packetType].Node];
             IPEndPoint host = new IPEndPoint(IPAddress.Broadcast, port);
-            server.Send(packet, packet.Length, host);
+
+            IPAddress add = IPAddress.Parse("192.168.60.255");
+            var host2 = new IPEndPoint(add, port);
+
+            server.Send(packet, packet.Length, host2);
         }
     }
 }

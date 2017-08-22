@@ -40,7 +40,8 @@ namespace GS_LOGIC
             FLIGHT_CONTROL_LASER_CONTRAST_0,
             ASI_DATA,
             LGU_STATUS,
-            PUSHER_DATA
+            PUSHER_DATA,
+            FCU_DATA
         };
 
         public static Dictionary<Nodes, int> Remotes = new Dictionary<Nodes, int>()
@@ -76,7 +77,8 @@ namespace GS_LOGIC
             { PacketTypes.FLIGHT_CONTROL_LASER_CONTRAST_0,Nodes.FLIGHT_CONTROL },
             { PacketTypes.ASI_DATA,Nodes.ASI_MONITOR_SYSTEM },
             { PacketTypes.LGU_STATUS, Nodes.LANDING_GEAR },
-            { PacketTypes.PUSHER_DATA, Nodes.FLIGHT_CONTROL }
+            { PacketTypes.PUSHER_DATA, Nodes.FLIGHT_CONTROL },
+            { PacketTypes.FCU_DATA, Nodes.FLIGHT_CONTROL }
         };
 
 
@@ -102,7 +104,8 @@ namespace GS_LOGIC
             { PacketTypes.FLIGHT_CONTROL_LASER_CONTRAST_0,0x1301 },
             { PacketTypes.ASI_DATA,0x1701 },
             { PacketTypes.LGU_STATUS, 0x7002 },
-            { PacketTypes.PUSHER_DATA, 0x1801 }
+            { PacketTypes.PUSHER_DATA, 0x1801 },
+            { PacketTypes.FCU_DATA, 0x0200  }
         };
 
         public static Dictionary<PacketTypes, PacketDefinition> AllPackets = new Dictionary<PacketTypes, PacketDefinition>()
@@ -857,7 +860,22 @@ namespace GS_LOGIC
                 new Param{Name = "Switch timer", Type = typeof(UInt32), Units = "", Size = 4}
             }
     }
+    }, {PacketTypes.FCU_DATA, new PacketDefinition
+            {
+      Name = "FCU Data",
+      ParameterPrefix = "",
+      PacketType = 0x0200,
+      Node = Nodes.FLIGHT_CONTROL,
+      DAQ = false,
+      Parameters = new Param[] {
+                new Param {Name = "All Flags", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "FCU Mission State", Type = typeof(UInt16), Units = "", Size = 2},
+                new Param {Name = "FCU Mission TrackDB", Type = typeof(uint), Units = "", Size = 1},
+                new Param {Name = "Pod Health Fault Flags", Type = typeof(UInt32), Units = "", Size = 4}
+      }
+
     }
+            }
         };
 
         public static UInt16[] CRCHashtable = new UInt16[]
