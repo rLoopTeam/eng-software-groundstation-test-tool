@@ -445,6 +445,9 @@ namespace GS_LOGIC
       Node = Nodes.FLIGHT_CONTROL,
       DAQ = false,
       Parameters = new Param[]{
+                new Param {Name = "Fault Flags", Type = typeof(UInt32), Units = "", Size = 4},
+                new Param {Name = "AMC Fault Flags", Type = typeof(UInt32), Units = "", Size = 4},
+
                 new Param {Name = "Requested RPM 1", Type = typeof(UInt16), Units = "", Size = 2},
                 new Param {Name = "Requested RPM 2", Type = typeof(UInt16), Units = "", Size = 2},
                 new Param {Name = "Requested RPM 3", Type = typeof(UInt16), Units = "", Size = 2},
@@ -470,7 +473,11 @@ namespace GS_LOGIC
                 new Param {Name = "ASI RPM 5", Type = typeof(UInt16), Units = "", Size = 2},
                 new Param {Name = "ASI RPM 6", Type = typeof(UInt16), Units = "", Size = 2},
                 new Param {Name = "ASI RPM 7", Type = typeof(UInt16), Units = "", Size = 2},
-                new Param {Name = "ASI RPM 8", Type = typeof(UInt16), Units = "", Size = 2}
+                new Param {Name = "ASI RPM 8", Type = typeof(UInt16), Units = "", Size = 2},
+
+                new Param {Name = "State", Type = typeof(uint), Units = "", Size = 1},
+                new Param {Name = "Current Index", Type = typeof(uint), Units = "", Size = 1},
+                new Param {Name = "AMC State", Type = typeof(uint), Units = "", Size = 1}
       }
     }
 }, {PacketTypes.BRAKE_DATA, new PacketDefinition {
