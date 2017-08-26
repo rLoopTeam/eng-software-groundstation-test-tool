@@ -14,7 +14,8 @@ namespace GS_LOGIC
             LANDING_GEAR,
             GIMBAL_CONTROL,
             XILINX_SIM,
-            ASI_MONITOR_SYSTEM
+            ASI_MONITOR_SYSTEM,
+            HE_THERMAL_MONITOR
         };
 
         public enum PacketTypes
@@ -41,7 +42,8 @@ namespace GS_LOGIC
             ASI_DATA,
             LGU_STATUS,
             PUSHER_DATA,
-            FCU_DATA
+            FCU_DATA,
+            HE_DATA
         };
 
         public static Dictionary<Nodes, int> Remotes = new Dictionary<Nodes, int>()
@@ -52,7 +54,8 @@ namespace GS_LOGIC
             { Nodes.LANDING_GEAR,9548 },
             { Nodes.GIMBAL_CONTROL,9619 },
             { Nodes.XILINX_SIM,9170 },
-            { Nodes.ASI_MONITOR_SYSTEM,9616 }
+            { Nodes.ASI_MONITOR_SYSTEM,9616 },
+            { Nodes.HE_THERMAL_MONITOR,9608}
         };
 
         public static Dictionary<PacketTypes, Nodes> NodesTypes = new Dictionary<PacketTypes, Nodes>() {
@@ -78,7 +81,8 @@ namespace GS_LOGIC
             { PacketTypes.ASI_DATA,Nodes.ASI_MONITOR_SYSTEM },
             { PacketTypes.LGU_STATUS, Nodes.LANDING_GEAR },
             { PacketTypes.PUSHER_DATA, Nodes.FLIGHT_CONTROL },
-            { PacketTypes.FCU_DATA, Nodes.FLIGHT_CONTROL }
+            { PacketTypes.FCU_DATA, Nodes.FLIGHT_CONTROL },
+            {PacketTypes.HE_DATA,Nodes.HE_THERMAL_MONITOR }
         };
 
 
@@ -105,11 +109,451 @@ namespace GS_LOGIC
             { PacketTypes.ASI_DATA,0x1701 },
             { PacketTypes.LGU_STATUS, 0x7002 },
             { PacketTypes.PUSHER_DATA, 0x1801 },
-            { PacketTypes.FCU_DATA, 0x0200  }
+            { PacketTypes.FCU_DATA, 0x0200  },
+            {PacketTypes.HE_DATA, 24577 }
         };
 
         public static Dictionary<PacketTypes, PacketDefinition> AllPackets = new Dictionary<PacketTypes, PacketDefinition>()
         {
+            {
+                PacketTypes.HE_DATA,
+                new PacketDefinition
+                {
+            Name = "HE Data",
+            PacketType = 24577,
+            Node = Nodes.HE_THERMAL_MONITOR,
+            DAQ = false,
+            ParameterPrefix = "HE ",
+            Parameters = new Param [] {
+                new Param {
+                    Type = typeof(uint),
+                    Units = "",
+                    Size = 4,
+                    Name = "Fault Flags"
+                },
+                new Param {
+                    Type = typeof(uint),
+                    Units = "",
+                    Size = 4,
+                    Name = "Solenoid Faults"
+                },
+                new Param {
+                    Type = typeof(uint),
+                    Units = "",
+                    Size = 4,
+                    Name = "DS2482 1 Fault Flags"
+                },
+                new Param {
+                    Type = typeof(uint),
+                    Units = "",
+                    Size = 4,
+                    Name = "DS2482 2 Fault Flags"
+                },
+               new Param  {
+                    Type = typeof(uint),
+                    Units = "",
+                    Size = 4,
+                    Name = "DS18B20 Fault Flags"
+                },
+               new Param  {
+                    Type = typeof(byte),
+                    Units = "",
+                    Size = 1,
+                    Name = "Sensors Count"
+                },
+               new Param  {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "1 Temperature"
+                },
+               new Param  {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "1 ROM ID"
+                },
+              new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "2 Temperature"
+                },
+               new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "2 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "3 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "3 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "4 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "4 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "5 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "5 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "6 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "6 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "7 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "7 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "8 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "8 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "9 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "9 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "10 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "10 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "11 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "11 ROM ID"
+                },
+               new Param  {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "12 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "12 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "13 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "13 ROM ID"
+                },
+               new Param  {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "14 Temperature"
+                },
+               new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "14 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "15 Temperature"
+                },
+               new Param  {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "15 ROM ID"
+                },
+               new Param  {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "16 Temperature"
+                },
+               new Param  {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "16 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "17 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "17 ROM ID"
+                },
+               new Param  {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "18 Temperature"
+                },
+               new Param  {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "18 ROM ID"
+                },
+               new Param  {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "19 Temperature"
+                },
+               new Param  {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "19 ROM ID"
+                },
+               new Param  {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "20 Temperature"
+                },
+               new Param  {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "20 ROM ID"
+                },
+               new Param  {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "21 Temperature"
+                },
+               new Param  {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "21 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "22 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "22 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "23 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "23 ROM ID"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "24 Temperature"
+                },
+                new Param {
+                    Type = typeof(UInt64),
+                    Units = "",
+                    Size = 8,
+                    Name = "24 ROM ID"
+                },
+                new Param {
+                    Type = typeof(UInt16),
+                    Units = "",
+                    Size = 2,
+                    Name = "Left Highest Sensor Index"
+                },
+                new Param {
+                    Type = typeof(UInt16),
+                    Units = "",
+                    Size = 2,
+                    Name = "Right Highest Sensor Index"
+                },
+                new Param {
+                    Type = typeof(UInt16),
+                    Units = "",
+                    Size = 2,
+                    Name = "Brake Motor Highest Sensor Index"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "Left Highest Temp"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "Right Highest Temp"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "Brake Motor Highest Temp"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "Left Average Temp"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "Right Average Temp"
+                },
+                new Param {
+                    Type = typeof(float),
+                    Units = "",
+                    Size = 4,
+                    Name = "Brake Motor Average Temp"
+                },
+                new Param {
+                    Type = typeof(byte),
+                    Units = "",
+                    Size = 1,
+                    Name = "Left Overtemp State"
+                },
+                new Param {
+                    Type = typeof(byte),
+                    Units = "",
+                    Size = 1,
+                    Name = "Right Overtemp State"
+                },
+                new Param {
+                    Type = typeof(byte),
+                    Units = "",
+                    Size = 1,
+                    Name = "Brake Motor Overtemp State"
+                },
+                new Param {
+                    Type = typeof(byte),
+                    Units = "",
+                    Size = 1,
+                    Name = "1 Solenoid Open State"
+                },
+                new Param {
+                    Type = typeof(byte),
+                    Units = "",
+                    Size = 1,
+                    Name = "2 Solenoid Open State"
+                },
+                new Param {
+                    Type = typeof(byte),
+                    Units = "",
+                    Size = 1,
+                    Name = "3 Solenoid Open State"
+                },
+                new Param {
+                    Type = typeof(byte),
+                    Units = "",
+                    Size = 1,
+                    Name = "4 Solenoid Open State"
+                },
+                new Param {
+                    Type = typeof(byte),
+                    Units = "",
+                    Size = 1,
+                    Name = "Manual Control Mode"
+                }
+            }
+        }
+            },
             {
                 PacketTypes.POWER_A_BMS,
                 new PacketDefinition{

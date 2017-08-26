@@ -177,6 +177,8 @@ namespace GS_LOGIC
                     return BitConverter.GetBytes(Int64.Parse(value));
                 case "System.Single":
                     return BitConverter.GetBytes(float.Parse(value));
+                case "System.UInt64":
+                    return BitConverter.GetBytes(UInt64.Parse(value));
                 default: return new byte[] { 0 };
             }
         }
